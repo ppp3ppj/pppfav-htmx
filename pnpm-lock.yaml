@@ -11,12 +11,12 @@ importers:
       '@tailwindcss/typography':
         specifier: ^0.5.13
         version: 0.5.13(tailwindcss@3.4.4)
+      autoprefixer:
+        specifier: ^10.4.19
+        version: 10.4.19(postcss@8.4.38)
       cssnano:
         specifier: ^7.0.2
         version: 7.0.2(postcss@8.4.38)
-      daisyui:
-        specifier: ^4.12.2
-        version: 4.12.2(postcss@8.4.38)
       htmx.org:
         specifier: ^1.9.12
         version: 1.9.12
@@ -24,15 +24,12 @@ importers:
         specifier: ^0.9.12
         version: 0.9.12
     devDependencies:
-      autoprefixer:
-        specifier: ^10.4.19
-        version: 10.4.19(postcss@8.4.38)
+      daisyui:
+        specifier: ^4.12.2
+        version: 4.12.2(postcss@8.4.38)
       esbuild:
         specifier: ^0.21.5
         version: 0.21.5
-      postcss:
-        specifier: ^8.4.38
-        version: 8.4.38
       postcss-cli:
         specifier: ^11.0.0
         version: 11.0.0(jiti@1.21.6)(postcss@8.4.38)
