@@ -23,6 +23,9 @@ importers:
       hyperscript.org:
         specifier: ^0.9.12
         version: 0.9.12
+      postcss:
+        specifier: ^8.4.38
+        version: 8.4.38
     devDependencies:
       daisyui:
         specifier: ^4.12.2
