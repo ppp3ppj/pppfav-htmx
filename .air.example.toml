@@ -22,9 +22,9 @@ tmp_dir = "tmp"
   poll_interval = 0
   post_cmd = []
   pre_cmd = [
-    "bun run dev",
+    "pnpm run dev",
     "templ generate",
-    "bun run build:tailwind"
+    "pnpm run build:tailwind"
   ]
   rerun = false
   rerun_delay = 500
