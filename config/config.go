@@ -25,7 +25,7 @@ type (
     AppInfo struct {
         Name        string `mapstructure:"name" validate:"required"`
         Version     string `mapstructure:"version" validate:"required"`
-        Env string `mapstructure:"env" validate:"required"`
+        Env string `mapstructure:"environtment" validate:"required"`
         SecretKey   string `mapstructure:"secretkey" validate:"required"`
     }
 
