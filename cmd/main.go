@@ -5,6 +5,7 @@ import (
 
 	"github.com/ppp3ppj/pppfav-htmx/config"
 	"github.com/ppp3ppj/pppfav-htmx/db"
+	"github.com/ppp3ppj/pppfav-htmx/internal/server"
 )
 
 func main() {
@@ -15,4 +16,7 @@ func main() {
             log.Fatal("Failed to close database connection: %v", err)
         }
     }()
+
+    server := server.NewEchoServer(conf, db)
+    server.Start()
 }
