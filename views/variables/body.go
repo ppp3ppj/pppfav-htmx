@@ -1,4 +1,4 @@
-package public_variables
+package views_variables
 
 import "github.com/a-h/templ"
 
