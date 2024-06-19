@@ -1,4 +1,4 @@
-package variables
+package public_variables
 
 import "github.com/a-h/templ"
 

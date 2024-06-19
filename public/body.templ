@@ -2,7 +2,8 @@ package public
 
 import "github.com/ppp3ppj/pppfav-htmx/public/variables"
 
-templ Body(opts variables.BodyOpts) {
+
+templ Body(opts public_variables.BodyOpts) {
 	<!DOCTYPE html>
 	<html lang="en">
 		<head hx-boost="true">
@@ -12,7 +13,7 @@ templ Body(opts variables.BodyOpts) {
 			}
 			<title>pppfav.dev</title>
 		</head>
-		<body id="admin-root" class="bg-base-100 dark:bg-base-300">
+		<body class="bg-base-100 dark:bg-base-300">
 			<div class="relative flex flex-col justify-center overflow-hidden">
 				<div class="min-h-screen">
 					@opts.Component
