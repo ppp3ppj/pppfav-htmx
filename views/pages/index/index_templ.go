@@ -12,6 +12,7 @@ import "bytes"
 
 import "github.com/ppp3ppj/pppfav-htmx/views/variables"
 import "github.com/ppp3ppj/pppfav-htmx/views"
+import "github.com/ppp3ppj/pppfav-htmx/views/components/themepicker"
 
 func Index(body views_variables.BodyOpts) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
@@ -52,7 +53,15 @@ func index() templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h1>PPPP index</h1>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"top-navbar\" class=\"navbar sticky top-0 z-20 bg-base-100 lg:bg-transparent\"><div class=\"flex-none\"><label hx-boost=\"false\" for=\"my-drawer\" class=\"btn btn-square btn-ghost drawer-button lg:hidden\"><svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" class=\"inline-block w-5 h-5 stroke-current\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M4 6h16M4 12h16M4 18h16\"></path></svg></label></div><div class=\"lg:invisible flex-1\">ppp:w</div><div class=\"navbar-end md:px-6\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = views_themepicker.ThemePicker(views_themepicker.DefaultThemes).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div><h1>PPPP index</h1><button class=\"btn\">Button</button>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

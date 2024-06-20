@@ -3,7 +3,7 @@ import plugin from 'tailwindcss/plugin';
 
 export const darkMode = 'class';
 // example content path templ and *js
-export const content = ["./pub/**/*.templ", "./src/**/*.js"];
+export const content = ["./views/**/*.templ", "./static/**/*.js"];
 export const theme = {
     screens: {
       'xs': '320px',
@@ -37,6 +37,12 @@ export const daisyui = {
     themes: [
         "cupcake",
         "sunset",
+        "cyberpunk",
+        "nord",
+        "synthwave",
+        "valentine",
+        "dracula",
+        "dim",
     ],
     darkTheme: "sunset",
 };
