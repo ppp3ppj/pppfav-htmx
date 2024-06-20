@@ -18,8 +18,6 @@ func NewDashBoardFrontend(g *echo.Group) {
     fe := &DashboardFrontend{ }
 
     g.GET("", fe.Index)
-    g.GET("/", fe.Index)
-    g.GET("/dashboard", fe.Index)
 }
 
 func (fe *DashboardFrontend) Index(c echo.Context) error {
@@ -28,10 +26,6 @@ func (fe *DashboardFrontend) Index(c echo.Context) error {
         Component: nil,
     }
 
-    fmt.Println("ppp")
-
     index := views_pages.Index(bodyOpts)
-    fmt.Println("ppp - index")
-    return template.AssertRenderLog(c, http.StatusOK, index)
-    //return template.RenderEmpty(c)
+    return template.AssertRender(c, http.StatusOK, index)
 }
