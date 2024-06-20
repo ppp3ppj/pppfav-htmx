@@ -56,7 +56,7 @@ window.setMkTheme = function(theme, isDark) {
       if (theme === null || theme === undefined) {
          theme = localStorage.getItem('mk-theme-light')
          if (theme === null || theme === undefined) {
-            theme = 'autumn'
+            theme = 'cupcake'
          }
       }
       localStorage.setItem('mk-theme-light', theme)
