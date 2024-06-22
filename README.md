@@ -6,9 +6,8 @@ Go + HTMX(templ)
 
 
 ## How to install templ
-    `
     go install github.com/a-h/templ/cmd/templ@latest
-    `
+
 ## How to migration
 
     go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
