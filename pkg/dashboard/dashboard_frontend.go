@@ -17,6 +17,11 @@ func NewDashBoardFrontend(g *echo.Group) {
     fe := &DashboardFrontend{ }
 
     g.GET("", fe.Index)
+
+    g.GET("/dashboard", func(c echo.Context) error {
+        return c.Redirect(301, "/dashboard/persons")
+    })
+    g.GET("/dashboard/persons", fe.Articles)
 }
 
 func (fe *DashboardFrontend) Index(c echo.Context) error {

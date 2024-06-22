@@ -1,0 +1,25 @@
+package views_dashboard
+
+import "github.com/ppp3ppj/pppfav-htmx/views/variables"
+import "github.com/ppp3ppj/pppfav-htmx/views"
+
+templ Dashboard(opts views_variables.DashboardOpts) {
+    <!DOCTYPE html>
+	<html lang="en">
+		<head hx-boost="true">
+			for i := range opts.AdditionalHeaders {
+				@RenderRaw(opts.AdditionalHeaders[i])
+			}
+			@views.Header()
+			<title>pppfav.dev</title>
+		</head>
+		<body id="admin-root" class="bg-base-100">
+			<script async src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+			<progress id="global-progress" class="htmx-indicator progress w-full top-0 fixed z-30"></progress>
+		</body>
+	</html>
+}
+
+func RenderRaw(content string) templ.Component {
+    return templ.Raw(content)
+}
