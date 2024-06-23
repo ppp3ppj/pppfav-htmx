@@ -17,7 +17,11 @@ export const theme = {
       '3xl': '1920px',
       '4xl': '2560px',
     },
-    extend: {},
+    extend: {
+        fontFamily: {
+            Kanit: ['Kanit', 'sans-serif']
+        },
+    },
 };
 export const plugins = [
     plugin(function({ addBase }) {
