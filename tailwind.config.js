@@ -27,9 +27,9 @@ export const plugins = [
     plugin(function({ addBase }) {
         addBase({
             'html': {
-                fontSize: "16px", // Default font size, which is typically 16px
+                fontSize: "18px", // Default font size, which is typically 16px
                 '@screen md': {
-                    fontSize: "14px", // Font size on medium (md) breakpoint, which is typically 14px
+                    fontSize: "16px", // Font size on medium (md) breakpoint, which is typically 14px
                 },
             },
         });
