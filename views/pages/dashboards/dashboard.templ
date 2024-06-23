@@ -15,11 +15,17 @@ templ Dashboard(opts views_variables.DashboardOpts) {
 		</head>
 		<body id="admin-root" class="bg-base-100">
 			<script async src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <!--
 			<progress id="global-progress" class="htmx-indicator progress w-full top-0 fixed z-30"></progress>
+            -->
+            @drawer(opts.Comp)
 		</body>
 	</html>
 }
 
+templ drawer(comp templ.Component) {
+    @comp
+}
 func RenderRaw(content string) templ.Component {
     return templ.Raw(content)
 }

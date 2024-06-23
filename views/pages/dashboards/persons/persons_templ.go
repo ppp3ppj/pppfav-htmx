@@ -13,6 +13,7 @@ import "bytes"
 import "github.com/ppp3ppj/pppfav-htmx/views/variables"
 import "github.com/ppp3ppj/pppfav-htmx/pkg/models"
 import "github.com/ppp3ppj/pppfav-htmx/views/pages/dashboards"
+import "github.com/ppp3ppj/pppfav-htmx/views/components/themepicker"
 
 type PersonsVm struct {
 	Opts       views_variables.DashboardOpts
@@ -46,7 +47,7 @@ func PersonsContent(vm PersonsVm) templ.Component {
 	})
 }
 
-func personsContent(persons []models.Person, createPath string) templ.Component {
+func personsContent(personList []models.Person, createPath string) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -59,7 +60,100 @@ func personsContent(persons []models.Person, createPath string) templ.Component 
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-full h-full\" id=\"articles\"><div class=\"mx-3 md:mx-10\"><div class=\"w-full flex flex-col md:flex-row justify-end\"><h1 class=\"grow text-4xl text-secondary font-bold my-auto mt-3 md:mt-0\">List of Articles</h1><h1>4PPPPPPP</h1></div><br><div class=\"w-full flex flex-row mb-5 justify-end\"><h1>4PPPPPPP</h1><h1>4PPPPPPP</h1></div><h1>4PPPPPPP</h1></div><br><div class=\"h-20\"></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"fixed top-4 right-4 z-50\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = views_themepicker.ThemePicker(views_themepicker.DefaultThemes).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"w-full h-full\" id=\"articles\"><div class=\"mx-3 md:mx-10\"><div class=\"w-full flex flex-col md:flex-row justify-end\"><h1 class=\"grow text-4xl text-secondary font-bold my-auto mt-3 md:mt-0\">List of Articles</h1>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = createPersonButton(createPath).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><br><div class=\"w-full flex flex-row mb-5 justify-end\"><h1>4PPPPPPP</h1><h1>4PPPPPPP</h1></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = personTable(personList, templ.Attributes{}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><br><div class=\"h-20\"></div></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if !templ_7745c5c3_IsBuffer {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteTo(templ_7745c5c3_W)
+		}
+		return templ_7745c5c3_Err
+	})
+}
+
+func createPersonButton(path string) templ.Component {
+	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
+		if !templ_7745c5c3_IsBuffer {
+			templ_7745c5c3_Buffer = templ.GetBuffer()
+			defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var3 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var3 == nil {
+			templ_7745c5c3_Var3 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button hx-get=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var4 string
+		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(path)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/dashboards/persons/persons.templ`, Line: 47, Col: 15}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-target=\"#admin-root\" hx-push-url=\"true\" hx-indicator=\"#global-progress\" class=\"btn btn-primary mt-5 md:mt-0 flex-initial\">Create <svg class=\"h-8 w-8 text-primary-content\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" stroke-width=\"2\" stroke=\"currentColor\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path stroke=\"none\" d=\"M0 0h24v24H0z\"></path> <rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"2\"></rect> <line x1=\"9\" y1=\"12\" x2=\"15\" y2=\"12\"></line> <line x1=\"12\" y1=\"9\" x2=\"12\" y2=\"15\"></line></svg></button>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if !templ_7745c5c3_IsBuffer {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteTo(templ_7745c5c3_W)
+		}
+		return templ_7745c5c3_Err
+	})
+}
+
+func personTable(posts []models.Person, attrs templ.Attributes) templ.Component {
+	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
+		if !templ_7745c5c3_IsBuffer {
+			templ_7745c5c3_Buffer = templ.GetBuffer()
+			defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var5 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var5 == nil {
+			templ_7745c5c3_Var5 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"article-table\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, attrs)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" class=\"card overflow-x-auto bg-base-100 overflow-y-hidden\"><table class=\"table\"><!-- head --><thead><tr class=\"h-16\"><th></th><th>ID</th><th>Title</th><th>Created At</th><th>Status</th><th>Actions</th></tr></thead> <tbody></tbody></table></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
