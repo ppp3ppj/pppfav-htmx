@@ -24,7 +24,7 @@ templ new(existingPerson *models.Person, baseURL string) {
 <div class="w-full h-full">
       <div class="flex flex-col justify-center items-center">
         <form id="form-person-post" class="w-full md:max-w-3xl lg:max-w-4xl">
-            <h1>Create Person</h1>
+            <div class="text-3xl font-bold">Create Person</div>
             <!-- Image Field -->
             <label class="form-control">
               <div class="label">
@@ -115,7 +115,7 @@ templ submitButton(existingId string) {
 			hx-get="/dashboard/persons"
             hx-target="#admin-root"
             hx-push-url="true"
-            hx-swap="outerHTML"
+            hx-swap="innerHTML"
 		>
 		    Cancel
 		</button>

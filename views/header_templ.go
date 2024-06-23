@@ -25,14 +25,14 @@ func Header() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<meta charset=\"UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE-edge\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><!--\n        Comment i use async htmx not load\n    <script async src=\"/dist/htmx.js\"></script>\n    <script async src=\"/dist/main.js\"></script>\n    --><script src=\"/dist/htmx.js\"></script><script src=\"/dist/main.js\"></script><link rel=\"stylesheet\" href=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<meta charset=\"UTF-8\"><meta http-equiv=\"X-UA-Compatible\" content=\"IE-edge\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><!--\n        Comment i use async htmx not load\n    <script async src=\"/dist/htmx.js\"></script>\n    <script async src=\"/dist/main.js\"></script>\n    --><!--\n    <script src=\"/dist/htmx.js\"></script>\n    --><script src=\"/dist/main.js\"></script><link rel=\"stylesheet\" href=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("/dist/tailwind_v4.css"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/header.templ`, Line: 17, Col: 70}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/header.templ`, Line: 19, Col: 70}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {

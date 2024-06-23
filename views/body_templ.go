@@ -39,7 +39,7 @@ func Body(opts views_variables.BodyOpts) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<title>pppfav.dev</title></head><body class=\"bg-base-100 dark:bg-base-300\"><div class=\"relative flex flex-col justify-center overflow-hidden\"><div class=\"min-h-screen\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<title>pppfav.dev</title></head><body id=\"admin-root\" class=\"bg-base-100 dark:bg-base-300\"><div class=\"relative flex flex-col justify-center overflow-hidden\"><div class=\"min-h-screen\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
