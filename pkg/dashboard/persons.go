@@ -8,8 +8,22 @@ import (
 	"github.com/ppp3ppj/pppfav-htmx/pkg/models"
 	"github.com/ppp3ppj/pppfav-htmx/template"
 	views_dashboards_persons "github.com/ppp3ppj/pppfav-htmx/views/pages/dashboards/persons"
+	views_dashboards_persons_new "github.com/ppp3ppj/pppfav-htmx/views/pages/dashboards/persons/create"
 	views_variables "github.com/ppp3ppj/pppfav-htmx/views/variables"
 )
+
+func (fe *DashboardFrontend) PersonsNew(c echo.Context) error {
+    opts := views_variables.DashboardOpts{
+    }
+
+    vm := views_dashboards_persons_new.NewPersonVM{
+        Opts: opts,
+    }
+
+    personsNew := views_dashboards_persons_new.New(vm)
+
+    return template.AssertRender(c, http.StatusOK, personsNew)
+}
 
 
 func (fe *DashboardFrontend) Articles(c echo.Context) error {

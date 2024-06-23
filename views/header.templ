@@ -6,9 +6,16 @@ templ Header() {
 	<meta charset="UTF-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE-edge"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <script async src="/dist/main.js"></script>
+    <!--
+        Comment i use async htmx not load
     <script async src="/dist/htmx.js"></script>
+    <script async src="/dist/main.js"></script>
+    -->
+    <script src="/dist/htmx.js"></script>
+    <script src="/dist/main.js"></script>
 
     <link rel="stylesheet" href={ fmt.Sprintf("/dist/tailwind_v4.css")}/>
-
+    <!--
+    <script src="https://unpkg.com/htmx.org@2.0.0" integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw" crossorigin="anonymous"></script>
+    -->
 }

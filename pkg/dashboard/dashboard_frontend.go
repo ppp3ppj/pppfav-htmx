@@ -22,6 +22,7 @@ func NewDashBoardFrontend(g *echo.Group) {
         return c.Redirect(301, "/dashboard/persons")
     })
     g.GET("/dashboard/persons", fe.Articles)
+    g.GET("/dashboard/persons/new", fe.PersonsNew)
 }
 
 func (fe *DashboardFrontend) Index(c echo.Context) error {

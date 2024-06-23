@@ -1,0 +1,25 @@
+package views_dashboards_persons_new
+
+import "github.com/ppp3ppj/pppfav-htmx/views/variables"
+import "github.com/ppp3ppj/pppfav-htmx/pkg/models"
+import "github.com/ppp3ppj/pppfav-htmx/views/pages/dashboards"
+
+type NewPersonVM struct {
+    Opts views_variables.DashboardOpts
+    BaseURL string
+    Person *models.Person
+}
+
+templ New(vm NewPersonVM) {
+    @views_dashboard.Dashboard(views_variables.DashboardOpts{
+        AdditionalHeaders: vm.Opts.AdditionalHeaders,
+        Comp: new(vm.Person, vm.BaseURL),
+    })
+}
+
+templ new(existingPerson *models.Person, baseURL string) {
+    <div class="w-full h-full">
+        <h1>PPPPP</h1>
+        <h1>{ baseURL }</h1>
+    </div>
+}
