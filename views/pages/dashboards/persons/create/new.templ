@@ -3,6 +3,8 @@ package views_dashboards_persons_new
 import "github.com/ppp3ppj/pppfav-htmx/views/variables"
 import "github.com/ppp3ppj/pppfav-htmx/pkg/models"
 import "github.com/ppp3ppj/pppfav-htmx/views/pages/dashboards"
+import "fmt"
+import "github.com/ppp3ppj/pppfav-htmx/utils/ternary"
 
 type NewPersonVM struct {
     Opts views_variables.DashboardOpts
@@ -12,14 +14,125 @@ type NewPersonVM struct {
 
 templ New(vm NewPersonVM) {
     @views_dashboard.Dashboard(views_variables.DashboardOpts{
+        Nav: vm.Opts.Nav,
         AdditionalHeaders: vm.Opts.AdditionalHeaders,
         Comp: new(vm.Person, vm.BaseURL),
     })
 }
 
 templ new(existingPerson *models.Person, baseURL string) {
-    <div class="w-full h-full">
-        <h1>PPPPP</h1>
-        <h1>{ baseURL }</h1>
-    </div>
+<div class="w-full h-full">
+      <div class="flex flex-col justify-center items-center">
+        <form id="form-person-post" class="w-full md:max-w-3xl lg:max-w-4xl">
+            <h1>Create Person</h1>
+            <!-- Image Field -->
+            <label class="form-control">
+              <div class="label">
+                <span class="label-text">What is your name?</span>
+                <span class="label-text-alt">Top Right label</span>
+              </div>
+              <div class="flex items-center space-x-6">
+                <div class="avatar shrink-0">
+                  <div class="w-24 rounded-full">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/20230905_Haerin_%28NewJeans%29.jpg/455px-20230905_Haerin_%28NewJeans%29.jpg?20230905163647" />
+                  </div>
+                </div>
+                <label class="block">
+                  <span class="sr-only">Choose profile photo</span>
+                    <input type="file" class="file-input w-full max-w-xs block" />
+                </label>
+              </div>
+              <div class="label">
+                <span class="label-text-alt">Bottom Left label</span>
+                <span class="label-text-alt">Bottom Right label</span>
+              </div>
+            </label>
+
+            <!-- Name Field -->
+            <label class="form-control">
+              <div class="label">
+                <span class="label-text">What is your name?</span>
+                <span class="label-text-alt">Top Right label</span>
+              </div>
+              <input type="text" placeholder="Type here" class="input input-bordered w-full md:max-w-3xl lg:max-w-4xl" />
+              <div class="label">
+                <span class="label-text-alt">Bottom Left label</span>
+                <span class="label-text-alt">Bottom Right label</span>
+              </div>
+            </label>
+
+
+            <!-- Age Field -->
+            <label class="form-control">
+              <div class="label">
+                <span class="label-text">What is your name?</span>
+                <span class="label-text-alt">Top Right label</span>
+              </div>
+              <input type="text" placeholder="Type here" class="input input-bordered w-full md:max-w-3xl lg:max-w-4xl" />
+              <div class="label">
+                <span class="label-text-alt">Bottom Left label</span>
+                <span class="label-text-alt">Bottom Right label</span>
+              </div>
+            </label>
+
+          <!-- Birth date Field -->
+            <label class="form-control">
+              <div class="label">
+                <span class="label-text">What is your name?</span>
+                <span class="label-text-alt">Top Right label</span>
+              </div>
+              <input type="date" placeholder="Type here" class="input input-bordered w-full md:max-w-3xl lg:max-w-4xl" />
+              <div class="label">
+                <span class="label-text-alt">Bottom Left label</span>
+                <span class="label-text-alt">Bottom Right label</span>
+              </div>
+            </label>
+
+            <!-- Description Field -->
+            <label class="form-control">
+              <div class="label">
+                <span class="label-text">Your bio</span>
+                <span class="label-text-alt">Alt label</span>
+              </div>
+              <textarea class="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
+              <div class="label">
+                <span class="label-text-alt">Your bio</span>
+                <span class="label-text-alt">Alt label</span>
+              </div>
+            </label>
+				@submitButton(ternary.Struct(existingPerson, &models.Person{}).ID)
+        </form>
+      </div>
+</div>
+}
+
+templ submitButton(existingId string) {
+    <div class="w-full flex flex-row justify-end space-x-3">
+
+		<button
+			id="draft-button"
+			class="btn btn-secondary md:max-w-3xl lg:max-w-4xl w-24 md:w-32 lg:w-40"
+			hx-get="/dashboard/persons"
+            hx-target="#admin-root"
+            hx-push-url="true"
+            hx-swap="outerHTML"
+		>
+		    Cancel
+		</button>
+		<button
+			id="publish-button"
+			class="btn btn-primary md:max-w-3xl lg:max-w-4xl w-32 md:w-40 lg:w-48"
+			hx-post={ fmt.Sprintf("/dashboard/persons/push", existingId) }
+			if len(existingId) != 0 {
+				hx-target="#dashboard-content"
+				hx-swap="afterend"
+			} else {
+				hx-target="#admin-root"
+				hx-swap="outerHTML"
+			}
+			hx-indicator="#global-progress"
+		>
+			Save
+		</button>
+	</div>
 }

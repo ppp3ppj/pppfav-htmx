@@ -13,6 +13,8 @@ import "bytes"
 import "github.com/ppp3ppj/pppfav-htmx/views/variables"
 import "github.com/ppp3ppj/pppfav-htmx/pkg/models"
 import "github.com/ppp3ppj/pppfav-htmx/views/pages/dashboards"
+import "fmt"
+import "github.com/ppp3ppj/pppfav-htmx/utils/ternary"
 
 type NewPersonVM struct {
 	Opts    views_variables.DashboardOpts
@@ -34,6 +36,7 @@ func New(vm NewPersonVM) templ.Component {
 		}
 		ctx = templ.ClearChildren(ctx)
 		templ_7745c5c3_Err = views_dashboard.Dashboard(views_variables.DashboardOpts{
+			Nav:               vm.Opts.Nav,
 			AdditionalHeaders: vm.Opts.AdditionalHeaders,
 			Comp:              new(vm.Person, vm.BaseURL),
 		}).Render(ctx, templ_7745c5c3_Buffer)
@@ -60,20 +63,67 @@ func new(existingPerson *models.Person, baseURL string) templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-full h-full\"><h1>PPPPP</h1><h1>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-full h-full\"><div class=\"flex flex-col justify-center items-center\"><form id=\"form-person-post\" class=\"w-full md:max-w-3xl lg:max-w-4xl\"><h1>Create Person</h1><!-- Image Field --><label class=\"form-control\"><div class=\"label\"><span class=\"label-text\">What is your name?</span> <span class=\"label-text-alt\">Top Right label</span></div><div class=\"flex items-center space-x-6\"><div class=\"avatar shrink-0\"><div class=\"w-24 rounded-full\"><img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/20230905_Haerin_%28NewJeans%29.jpg/455px-20230905_Haerin_%28NewJeans%29.jpg?20230905163647\"></div></div><label class=\"block\"><span class=\"sr-only\">Choose profile photo</span> <input type=\"file\" class=\"file-input w-full max-w-xs block\"></label></div><div class=\"label\"><span class=\"label-text-alt\">Bottom Left label</span> <span class=\"label-text-alt\">Bottom Right label</span></div></label><!-- Name Field --><label class=\"form-control\"><div class=\"label\"><span class=\"label-text\">What is your name?</span> <span class=\"label-text-alt\">Top Right label</span></div><input type=\"text\" placeholder=\"Type here\" class=\"input input-bordered w-full md:max-w-3xl lg:max-w-4xl\"><div class=\"label\"><span class=\"label-text-alt\">Bottom Left label</span> <span class=\"label-text-alt\">Bottom Right label</span></div></label><!-- Age Field --><label class=\"form-control\"><div class=\"label\"><span class=\"label-text\">What is your name?</span> <span class=\"label-text-alt\">Top Right label</span></div><input type=\"text\" placeholder=\"Type here\" class=\"input input-bordered w-full md:max-w-3xl lg:max-w-4xl\"><div class=\"label\"><span class=\"label-text-alt\">Bottom Left label</span> <span class=\"label-text-alt\">Bottom Right label</span></div></label><!-- Birth date Field --><label class=\"form-control\"><div class=\"label\"><span class=\"label-text\">What is your name?</span> <span class=\"label-text-alt\">Top Right label</span></div><input type=\"date\" placeholder=\"Type here\" class=\"input input-bordered w-full md:max-w-3xl lg:max-w-4xl\"><div class=\"label\"><span class=\"label-text-alt\">Bottom Left label</span> <span class=\"label-text-alt\">Bottom Right label</span></div></label><!-- Description Field --><label class=\"form-control\"><div class=\"label\"><span class=\"label-text\">Your bio</span> <span class=\"label-text-alt\">Alt label</span></div><textarea class=\"textarea textarea-bordered h-24\" placeholder=\"Bio\"></textarea><div class=\"label\"><span class=\"label-text-alt\">Your bio</span> <span class=\"label-text-alt\">Alt label</span></div></label>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var3 string
-		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(baseURL)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/dashboards/persons/create/new.templ`, Line: 23, Col: 21}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+		templ_7745c5c3_Err = submitButton(ternary.Struct(existingPerson, &models.Person{}).ID).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h1></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</form></div></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if !templ_7745c5c3_IsBuffer {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteTo(templ_7745c5c3_W)
+		}
+		return templ_7745c5c3_Err
+	})
+}
+
+func submitButton(existingId string) templ.Component {
+	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
+		if !templ_7745c5c3_IsBuffer {
+			templ_7745c5c3_Buffer = templ.GetBuffer()
+			defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var3 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var3 == nil {
+			templ_7745c5c3_Var3 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-full flex flex-row justify-end space-x-3\"><button id=\"draft-button\" class=\"btn btn-secondary md:max-w-3xl lg:max-w-4xl w-24 md:w-32 lg:w-40\" hx-get=\"/dashboard/persons\" hx-target=\"#admin-root\" hx-push-url=\"true\" hx-swap=\"outerHTML\">Cancel</button> <button id=\"publish-button\" class=\"btn btn-primary md:max-w-3xl lg:max-w-4xl w-32 md:w-40 lg:w-48\" hx-post=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var4 string
+		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("/dashboard/persons/push", existingId))
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/dashboards/persons/create/new.templ`, Line: 125, Col: 63}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if len(existingId) != 0 {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-target=\"#dashboard-content\" hx-swap=\"afterend\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		} else {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-target=\"#admin-root\" hx-swap=\"outerHTML\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-indicator=\"#global-progress\">Save</button></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

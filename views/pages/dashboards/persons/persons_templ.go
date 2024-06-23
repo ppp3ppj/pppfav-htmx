@@ -13,7 +13,6 @@ import "bytes"
 import "github.com/ppp3ppj/pppfav-htmx/views/variables"
 import "github.com/ppp3ppj/pppfav-htmx/pkg/models"
 import "github.com/ppp3ppj/pppfav-htmx/views/pages/dashboards"
-import "github.com/ppp3ppj/pppfav-htmx/views/components/themepicker"
 
 type PersonsVm struct {
 	Opts       views_variables.DashboardOpts
@@ -35,6 +34,7 @@ func PersonsContent(vm PersonsVm) templ.Component {
 		}
 		ctx = templ.ClearChildren(ctx)
 		templ_7745c5c3_Err = views_dashboard.Dashboard(views_variables.DashboardOpts{
+			Nav:  vm.Opts.Nav,
 			Comp: personsContent(vm.Persons, vm.CreatePath),
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
@@ -60,15 +60,7 @@ func personsContent(personList []models.Person, createPath string) templ.Compone
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"fixed top-4 right-4 z-50\">")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = views_themepicker.ThemePicker(views_themepicker.DefaultThemes).Render(ctx, templ_7745c5c3_Buffer)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"w-full h-full\" id=\"articles\"><div class=\"mx-3 md:mx-10\"><div class=\"w-full flex flex-col md:flex-row justify-end\"><h1 class=\"grow text-4xl text-secondary font-bold my-auto mt-3 md:mt-0\">List of Articles</h1>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-full h-full\" id=\"persons\"><div class=\"mx-3 md:mx-10\"><div class=\"w-full flex flex-col md:flex-row justify-end\"><h1 class=\"grow text-4xl text-secondary font-bold my-auto mt-3 md:mt-0\">List of Persons</h1>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -76,7 +68,7 @@ func personsContent(personList []models.Person, createPath string) templ.Compone
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><br><div class=\"w-full flex flex-row mb-5 justify-end\"><h1>4PPPPPPP</h1><h1>4PPPPPPP</h1></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><br><div class=\"w-full flex flex-row mb-5 justify-end\"><h1>For pagination</h1></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -115,7 +107,7 @@ func createPersonButton(path string) templ.Component {
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(path)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/dashboards/persons/persons.templ`, Line: 46, Col: 15}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/dashboards/persons/persons.templ`, Line: 42, Col: 15}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {

@@ -14,6 +14,7 @@ import (
 
 func (fe *DashboardFrontend) PersonsNew(c echo.Context) error {
     opts := views_variables.DashboardOpts{
+        Nav: nav(0),
     }
 
     vm := views_dashboards_persons_new.NewPersonVM{
@@ -28,7 +29,9 @@ func (fe *DashboardFrontend) PersonsNew(c echo.Context) error {
 
 func (fe *DashboardFrontend) Articles(c echo.Context) error {
 
-    opts := views_variables.DashboardOpts{ }
+    opts := views_variables.DashboardOpts{
+        Nav: nav(0),
+    }
     mockPerson := mockData()
     personVm := views_dashboards_persons.PersonsVm{
         Opts: opts,

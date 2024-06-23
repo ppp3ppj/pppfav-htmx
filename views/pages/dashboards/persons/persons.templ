@@ -3,7 +3,6 @@ package views_dashboards_persons
 import "github.com/ppp3ppj/pppfav-htmx/views/variables"
 import "github.com/ppp3ppj/pppfav-htmx/pkg/models"
 import "github.com/ppp3ppj/pppfav-htmx/views/pages/dashboards"
-import "github.com/ppp3ppj/pppfav-htmx/views/components/themepicker"
 
 type PersonsVm struct {
     Opts views_variables.DashboardOpts
@@ -13,26 +12,23 @@ type PersonsVm struct {
 
 templ PersonsContent(vm PersonsVm) {
     @views_dashboard.Dashboard(views_variables.DashboardOpts{
+        Nav: vm.Opts.Nav,
         Comp: personsContent(vm.Persons, vm.CreatePath),
     })
 }
 
 templ personsContent(personList []models.Person, createPath string) {
-    <div class="fixed top-4 right-4 z-50">
-        @views_themepicker.ThemePicker(views_themepicker.DefaultThemes)
-    </div>
-	<div class="w-full h-full" id="articles">
+	<div class="w-full h-full" id="persons">
 		<div class="mx-3 md:mx-10">
 			<div class="w-full flex flex-col md:flex-row justify-end">
 				<h1 class="grow text-4xl text-secondary font-bold my-auto mt-3 md:mt-0">
-					List of Articles
+					List of Persons
 				</h1>
 				@createPersonButton(createPath)
 			</div>
 			<br/>
 			<div class="w-full flex flex-row mb-5 justify-end">
-                <h1>4PPPPPPP</h1>
-                <h1>4PPPPPPP</h1>
+                <h1>For pagination</h1>
 			</div>
             @personTable(personList, templ.Attributes{})
 		</div>
