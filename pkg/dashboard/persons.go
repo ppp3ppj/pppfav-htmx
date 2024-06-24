@@ -103,7 +103,13 @@ func (fe *DashboardFrontend) PersonsPush(c echo.Context) error {
     }
 
     personsNew := views_dashboards_persons_new.New(vm)
-    fe.PersonRepo.Insert(c, &models.Person{})
+    fe.PersonRepo.Insert(c, &models.Person{
+        Name: "ppp agnt",
+        Age: 30,
+        BirthDate: time.Date(1994, 5, 12, 0, 0, 0, 0, time.UTC),
+        ImageURL: "www.google.com",
+        Description: "A sample person",
+    })
 
     return template.AssertRender(c, http.StatusOK, personsNew)
 }
