@@ -3,7 +3,7 @@ package views_dashboards_persons_new
 import "github.com/ppp3ppj/pppfav-htmx/views/variables"
 import "github.com/ppp3ppj/pppfav-htmx/pkg/models"
 import "github.com/ppp3ppj/pppfav-htmx/views/pages/dashboards"
-import "fmt"
+//import "fmt"
 import "github.com/ppp3ppj/pppfav-htmx/utils/ternary"
 
 type NewPersonVM struct {
@@ -122,14 +122,9 @@ templ submitButton(existingId string) {
 		<button
 			id="publish-button"
 			class="btn btn-primary md:max-w-3xl lg:max-w-4xl w-32 md:w-40 lg:w-48"
-			hx-post={ fmt.Sprintf("/dashboard/persons/push", existingId) }
-			if len(existingId) != 0 {
-				hx-target="#dashboard-content"
-				hx-swap="afterend"
-			} else {
-				hx-target="#admin-root"
-				hx-swap="outerHTML"
-			}
+			hx-post="/dashboard/persons/push"
+            hx-target="#admin-root"
+            hx-swap="outerHTML"
 			hx-indicator="#global-progress"
 		>
 			Save

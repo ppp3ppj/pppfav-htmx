@@ -13,7 +13,8 @@ import "bytes"
 import "github.com/ppp3ppj/pppfav-htmx/views/variables"
 import "github.com/ppp3ppj/pppfav-htmx/pkg/models"
 import "github.com/ppp3ppj/pppfav-htmx/views/pages/dashboards"
-import "fmt"
+
+//import "fmt"
 import "github.com/ppp3ppj/pppfav-htmx/utils/ternary"
 
 type NewPersonVM struct {
@@ -95,35 +96,7 @@ func submitButton(existingId string) templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-full flex flex-row justify-end space-x-3\"><button id=\"draft-button\" class=\"btn btn-secondary md:max-w-3xl lg:max-w-4xl w-24 md:w-32 lg:w-40\" hx-get=\"/dashboard/persons\" hx-target=\"#admin-root\" hx-push-url=\"true\" hx-swap=\"innerHTML\">Cancel</button> <button id=\"publish-button\" class=\"btn btn-primary md:max-w-3xl lg:max-w-4xl w-32 md:w-40 lg:w-48\" hx-post=\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		var templ_7745c5c3_Var4 string
-		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("/dashboard/persons/push", existingId))
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/dashboards/persons/create/new.templ`, Line: 125, Col: 63}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"")
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		if len(existingId) != 0 {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-target=\"#dashboard-content\" hx-swap=\"afterend\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		} else {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-target=\"#admin-root\" hx-swap=\"outerHTML\"")
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-indicator=\"#global-progress\">Save</button></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-full flex flex-row justify-end space-x-3\"><button id=\"draft-button\" class=\"btn btn-secondary md:max-w-3xl lg:max-w-4xl w-24 md:w-32 lg:w-40\" hx-get=\"/dashboard/persons\" hx-target=\"#admin-root\" hx-push-url=\"true\" hx-swap=\"innerHTML\">Cancel</button> <button id=\"publish-button\" class=\"btn btn-primary md:max-w-3xl lg:max-w-4xl w-32 md:w-40 lg:w-48\" hx-post=\"/dashboard/persons/push\" hx-target=\"#admin-root\" hx-swap=\"outerHTML\" hx-indicator=\"#global-progress\">Save</button></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

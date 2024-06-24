@@ -88,3 +88,21 @@ func mockData() []models.Person {
         },
     }
 }
+
+func (fe *DashboardFrontend) PersonsPush(c echo.Context) error {
+    var req PersonCreateRequest
+    if err := c.Bind(&req); err != nil {
+    }
+
+    opts := views_variables.DashboardOpts{
+        Nav: nav(0),
+    }
+
+    vm := views_dashboards_persons_new.NewPersonVM{
+        Opts: opts,
+    }
+
+    personsNew := views_dashboards_persons_new.New(vm)
+
+    return template.AssertRender(c, http.StatusOK, personsNew)
+}
