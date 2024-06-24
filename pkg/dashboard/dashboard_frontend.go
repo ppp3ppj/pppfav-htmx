@@ -4,18 +4,28 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/jmoiron/sqlx"
 	"github.com/labstack/echo/v4"
+	"github.com/ppp3ppj/pppfav-htmx/pkg/models"
 	"github.com/ppp3ppj/pppfav-htmx/template"
 	views_pages "github.com/ppp3ppj/pppfav-htmx/views/pages/index"
 	views_variables "github.com/ppp3ppj/pppfav-htmx/views/variables"
 )
 
 type DashboardFrontend struct {
-
+    Db *sqlx.DB
+    PersonRepo models.PersonRepository
 }
 
-func NewDashBoardFrontend(g *echo.Group) {
-    fe := &DashboardFrontend{ }
+func NewDashBoardFrontend(
+    g *echo.Group,
+    db *sqlx.DB,
+    personRepo models.PersonRepository,
+) {
+    fe := &DashboardFrontend{
+        Db: db,
+        PersonRepo: personRepo,
+    }
 
     g.GET("", fe.Index)
 

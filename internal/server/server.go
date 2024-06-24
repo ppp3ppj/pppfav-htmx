@@ -16,6 +16,7 @@ import (
 	"github.com/ppp3ppj/pppfav-htmx/db"
 	server_middlewares "github.com/ppp3ppj/pppfav-htmx/internal/middlewares"
 	"github.com/ppp3ppj/pppfav-htmx/pkg/dashboard"
+	"github.com/ppp3ppj/pppfav-htmx/pkg/person/repository"
 	"github.com/ppp3ppj/pppfav-htmx/template"
 )
 
@@ -59,12 +60,14 @@ func (s * echoServer) Start() {
     s.app.Static("/assets", "public/assets")
 
     s.app.GET("/v1/health", s.healthCheck)
+    // Register Repo
+    personRepo := repository.NewPersonRepository(s.db.Connect())
 
     // Register template templ
     template.NewTemplateRenderer(s.app)
 
     baseGroup := s.app.Group("")
-    dashboard.NewDashBoardFrontend(baseGroup)
+    dashboard.NewDashBoardFrontend(baseGroup, s.db.Connect(), personRepo)
 
     // Graceful Shutdown
     quitCh := make(chan os.Signal, 1)

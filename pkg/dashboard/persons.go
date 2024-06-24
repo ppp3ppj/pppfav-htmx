@@ -103,6 +103,7 @@ func (fe *DashboardFrontend) PersonsPush(c echo.Context) error {
     }
 
     personsNew := views_dashboards_persons_new.New(vm)
+    fe.PersonRepo.Insert(c, &models.Person{})
 
     return template.AssertRender(c, http.StatusOK, personsNew)
 }
