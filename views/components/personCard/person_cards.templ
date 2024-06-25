@@ -1,0 +1,9 @@
+package views_person_card
+
+import "github.com/ppp3ppj/pppfav-htmx/pkg/models"
+
+templ PersonCards(persons []models.Person) {
+    for _, p := range persons {
+        @PersonCard(p.Name, p.ImageURL)
+    }
+}

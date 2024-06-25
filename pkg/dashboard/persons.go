@@ -8,6 +8,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/ppp3ppj/pppfav-htmx/pkg/models"
 	"github.com/ppp3ppj/pppfav-htmx/template"
+	views_person_card "github.com/ppp3ppj/pppfav-htmx/views/components/personCard"
 	views_dashboards_persons "github.com/ppp3ppj/pppfav-htmx/views/pages/dashboards/persons"
 	views_dashboards_persons_new "github.com/ppp3ppj/pppfav-htmx/views/pages/dashboards/persons/create"
 	views_variables "github.com/ppp3ppj/pppfav-htmx/views/variables"
@@ -27,6 +28,11 @@ func (fe *DashboardFrontend) PersonsNew(c echo.Context) error {
     return template.AssertRender(c, http.StatusOK, personsNew)
 }
 
+func (fe *DashboardFrontend) IndexPersons(c echo.Context) error {
+    mockPerson := mockData()
+    personDisplay := views_person_card.PersonCards(mockPerson)
+    return template.AssertRender(c, http.StatusOK, personDisplay)
+}
 
 func (fe *DashboardFrontend) Articles(c echo.Context) error {
 
@@ -52,7 +58,7 @@ func mockData() []models.Person {
             Name:        "Alice Johnson",
             Age:         28,
             BirthDate:   time.Date(1996, time.April, 12, 0, 0, 0, 0, time.UTC),
-            ImageURL:    "https://example.com/images/alice.jpg",
+            ImageURL:    "/uploads/6431467b554c450fbe29a9b9e30ce1b4.jpg",
             Description: "Alice is a software engineer with a passion for open-source projects.",
         },
         {

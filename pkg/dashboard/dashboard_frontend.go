@@ -42,6 +42,8 @@ func NewDashBoardFrontend(
     g.GET("/dashboard/persons", fe.Articles)
     g.GET("/dashboard/persons/new", fe.PersonsNew)
     g.POST("/dashboard/persons/push", fe.PersonsPush)
+
+    g.GET("/index_person", fe.IndexPersons)
 }
 
 func (fe *DashboardFrontend) Index(c echo.Context) error {
