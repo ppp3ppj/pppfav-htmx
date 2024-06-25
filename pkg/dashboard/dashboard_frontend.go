@@ -8,23 +8,30 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/ppp3ppj/pppfav-htmx/pkg/models"
 	"github.com/ppp3ppj/pppfav-htmx/template"
+	"github.com/ppp3ppj/pppfav-htmx/utils/image_service"
 	views_pages "github.com/ppp3ppj/pppfav-htmx/views/pages/index"
 	views_variables "github.com/ppp3ppj/pppfav-htmx/views/variables"
 )
 
 type DashboardFrontend struct {
+    BaseURL string
     Db *sqlx.DB
     PersonRepo models.PersonRepository
+    ImageService image_service.ImageService
 }
 
 func NewDashBoardFrontend(
     g *echo.Group,
     db *sqlx.DB,
     personRepo models.PersonRepository,
+    imageService image_service.ImageService,
+    baseURL string,
 ) {
     fe := &DashboardFrontend{
         Db: db,
         PersonRepo: personRepo,
+        ImageService: imageService,
+        BaseURL: baseURL,
     }
 
     g.GET("", fe.Index)

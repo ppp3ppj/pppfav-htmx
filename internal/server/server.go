@@ -18,6 +18,7 @@ import (
 	"github.com/ppp3ppj/pppfav-htmx/pkg/dashboard"
 	"github.com/ppp3ppj/pppfav-htmx/pkg/person/repository"
 	"github.com/ppp3ppj/pppfav-htmx/template"
+	"github.com/ppp3ppj/pppfav-htmx/utils/image_service"
 )
 
 type echoServer struct {
@@ -58,16 +59,21 @@ func (s * echoServer) Start() {
 
     s.app.Static("/dist", "dist")
     s.app.Static("/assets", "public/assets")
+    // For upload image
+    s.app.Static("/uploads", "uploads")
 
     s.app.GET("/v1/health", s.healthCheck)
+    imageService := image_service.NewImageService()
     // Register Repo
     personRepo := repository.NewPersonRepository(s.db.Connect())
 
     // Register template templ
     template.NewTemplateRenderer(s.app)
+    // for use upload image baseurl
+    baseURL := fmt.Sprintf("%s:%d", "localhost", s.conf.Server.Port)
 
     baseGroup := s.app.Group("")
-    dashboard.NewDashBoardFrontend(baseGroup, s.db.Connect(), personRepo)
+    dashboard.NewDashBoardFrontend(baseGroup, s.db.Connect(), personRepo, imageService, baseURL)
 
     // Graceful Shutdown
     quitCh := make(chan os.Signal, 1)

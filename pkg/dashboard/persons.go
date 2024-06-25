@@ -1,6 +1,7 @@
 package dashboard
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -101,13 +102,26 @@ func (fe *DashboardFrontend) PersonsPush(c echo.Context) error {
     vm := views_dashboards_persons_new.NewPersonVM{
         Opts: opts,
     }
+    file, err := c.FormFile("imageData")
+    if err != nil {
+        return err
+    }
+    fmt.Println("Not Error")
+    fmt.Println(file.Size)
+    newImageURL, err := fe.ImageService.UploadImage(file, "uploads")
+    if err != nil {
+        return err
+    }
+
+    fmt.Println("Not Error add to uploads")
+    fmt.Println(newImageURL)
 
     personsNew := views_dashboards_persons_new.New(vm)
     fe.PersonRepo.Insert(c, &models.Person{
         Name: "ppp agnt",
         Age: 30,
         BirthDate: time.Date(1994, 5, 12, 0, 0, 0, 0, time.UTC),
-        ImageURL: "www.google.com",
+        ImageURL: fe.BaseURL + newImageURL,
         Description: "A sample person",
     })
 
