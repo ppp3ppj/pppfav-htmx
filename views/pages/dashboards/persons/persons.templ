@@ -28,9 +28,13 @@ templ personsContent(personList []models.Person, createPath string) {
 			</div>
 			<br/>
 			<div class="w-full flex flex-row mb-5 justify-end">
-                <h1>For pagination</h1>
+            <div class="">
+                Toggle Display
+            </div>
+                <input type="checkbox" class="toggle toggle-md" checked="checked" />
 			</div>
             @personTable(personList, templ.Attributes{})
+
 		</div>
 		<br/>
 		<div class="h-20"></div>
@@ -50,27 +54,164 @@ templ createPersonButton(path string) {
 	</button>
 }
 
-templ personTable(posts []models.Person, attrs templ.Attributes) {
-	<div
-		id="article-table"
-		{ attrs... }
-		class="card overflow-x-auto bg-base-100 overflow-y-hidden"
-	>
-		<table class="table">
-			<!-- head -->
-			<thead>
-				<tr class="h-16">
-					<th></th>
-					<th>ID</th>
-					<th>Title</th>
-					<th>Created At</th>
-					<th>Status</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
+templ personTable(persons []models.Person, attrs templ.Attributes) {
+   <style>
 
-			</tbody>
-		</table>
-	</div>
+      *,
+
+      ::before,
+
+      ::after {
+
+        box-sizing: border-box;
+
+      }
+
+
+      .container {
+
+        counter-reset: box;
+
+        display: grid;
+
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+        grid-auto-rows: 1fr;
+
+        grid-auto-flow: dense;
+
+        grid-gap: 5px;
+
+
+        height: 100vh;
+
+        margin: 0 auto;
+
+      }
+
+
+      .box {
+
+        margin: 0;
+
+        display: flex;
+
+        flex-direction: column;
+
+      }
+
+
+      .box > img {
+
+        flex: 1;
+
+        max-width: 100%;
+
+        object-fit: cover;
+
+      }
+
+
+      .box > figcaption {
+
+        padding: 0.5rem 1rem;
+
+        background-color: #48cfad;
+
+        color: #fff;
+
+        text-align: center;
+
+      }
+
+
+      .box:nth-child(2n + 1) {
+
+        grid-row: span 2;
+
+        grid-column: span 2;
+
+      }
+
+    </style>
+<div class="container">
+
+    for _, p := range persons {
+        <img class="box rounded" src={ p.ImageURL } alt="Image 03" />
+    }
+    <!--
+      <figure class="box">
+
+        <img src="https://source.unsplash.com/collection/311028" />
+
+        <figcaption>Autumn</figcaption>
+
+      </figure>
+
+      <figure class="box">
+
+        <img src="https://source.unsplash.com/collection/395888" />
+
+        <figcaption>Halloween</figcaption>
+
+      </figure>
+
+      <figure class="box">
+
+        <img src="https://source.unsplash.com/collection/1999207" />
+
+        <figcaption>Political</figcaption>
+
+      </figure>
+
+      <figure class="box">
+
+        <img src="https://source.unsplash.com/collection/827807" />
+
+        <figcaption>Technic</figcaption>
+
+      </figure>
+
+      <figure class="box">
+
+        <img src="https://source.unsplash.com/collection/1538150" />
+
+        <figcaption>Milkyway</figcaption>
+
+      </figure>
+
+      <figure class="box">
+
+        <img src="https://source.unsplash.com/collection/1424240" />
+
+        <figcaption>Animals</figcaption>
+
+      </figure>
+
+      <figure class="box">
+
+        <img src="https://source.unsplash.com/collection/1767181" />
+
+        <figcaption>Blancs</figcaption>
+
+      </figure>
+      -->
+
+    </div>
+
+    <!--
+    <img class="w-full rounded-xl shadow" src="./masonry-01.jpg" width="232" height="290" alt="Image 01" />
+    <img class="w-full rounded-xl shadow" src="./masonry-02.jpg" width="232" height="290" alt="Image 02" />
+    <img class="w-full rounded-xl shadow" src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" width="232" height="174" alt="Image 03" />
+    <img class="w-full rounded-xl shadow" src="./masonry-04.jpg" width="232" height="155" alt="Image 04" />
+    <img class="w-full rounded-xl shadow" src="./masonry-05.jpg" width="232" height="349" alt="Image 05" />
+    <img class="w-full rounded-xl shadow" src="./masonry-06.jpg" width="232" height="250" alt="Image 06" />
+    <img class="w-full rounded-xl shadow" src="./masonry-07.jpg" width="232" height="349" alt="Image 07" />
+    <img class="w-full rounded-xl shadow" src="./masonry-08.jpg" width="232" height="155" alt="Image 08" />
+    <img class="w-full rounded-xl shadow" src="./masonry-09.jpg" width="232" height="250" alt="Image 09" />
+    <img class="w-full rounded-xl shadow" src="./masonry-10.jpg" width="232" height="290" alt="Image 10" />
+    <img class="w-full rounded-xl shadow" src="./masonry-11.jpg" width="232" height="155" alt="Image 11" />
+    <img class="w-full rounded-xl shadow" src="./masonry-12.jpg" width="232" height="309" alt="Image 12" />
+    -->
+
 }

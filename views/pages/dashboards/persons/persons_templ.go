@@ -68,7 +68,7 @@ func personsContent(personList []models.Person, createPath string) templ.Compone
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><br><div class=\"w-full flex flex-row mb-5 justify-end\"><h1>For pagination</h1></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><br><div class=\"w-full flex flex-row mb-5 justify-end\"><div class=\"\">Toggle Display</div><input type=\"checkbox\" class=\"toggle toggle-md\" checked=\"checked\"></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -107,7 +107,7 @@ func createPersonButton(path string) templ.Component {
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(path)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/dashboards/persons/persons.templ`, Line: 42, Col: 15}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/dashboards/persons/persons.templ`, Line: 46, Col: 15}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {
@@ -124,7 +124,7 @@ func createPersonButton(path string) templ.Component {
 	})
 }
 
-func personTable(posts []models.Person, attrs templ.Attributes) templ.Component {
+func personTable(persons []models.Person, attrs templ.Attributes) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -137,15 +137,30 @@ func personTable(posts []models.Person, attrs templ.Attributes) templ.Component 
 			templ_7745c5c3_Var5 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"article-table\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<style>\n\n      *,\n\n      ::before,\n\n      ::after {\n\n        box-sizing: border-box;\n\n      }\n\n\n      .container {\n\n        counter-reset: box;\n\n        display: grid;\n\n        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n\n        grid-auto-rows: 1fr;\n\n        grid-auto-flow: dense;\n\n        grid-gap: 5px;\n\n\n        height: 100vh;\n\n        margin: 0 auto;\n\n      }\n\n\n      .box {\n\n        margin: 0;\n\n        display: flex;\n\n        flex-direction: column;\n\n      }\n\n\n      .box > img {\n\n        flex: 1;\n\n        max-width: 100%;\n\n        object-fit: cover;\n\n      }\n\n\n      .box > figcaption {\n\n        padding: 0.5rem 1rem;\n\n        background-color: #48cfad;\n\n        color: #fff;\n\n        text-align: center;\n\n      }\n\n\n      .box:nth-child(2n + 1) {\n\n        grid-row: span 2;\n\n        grid-column: span 2;\n\n      }\n\n    </style><div class=\"container\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, attrs)
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
+		for _, p := range persons {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<img class=\"box rounded\" src=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var6 string
+			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(p.ImageURL)
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/dashboards/persons/persons.templ`, Line: 140, Col: 49}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" alt=\"Image 03\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" class=\"card overflow-x-auto bg-base-100 overflow-y-hidden\"><table class=\"table\"><!-- head --><thead><tr class=\"h-16\"><th></th><th>ID</th><th>Title</th><th>Created At</th><th>Status</th><th>Actions</th></tr></thead> <tbody></tbody></table></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!--\n      <figure class=\"box\">\n\n        <img src=\"https://source.unsplash.com/collection/311028\" />\n\n        <figcaption>Autumn</figcaption>\n\n      </figure>\n\n      <figure class=\"box\">\n\n        <img src=\"https://source.unsplash.com/collection/395888\" />\n\n        <figcaption>Halloween</figcaption>\n\n      </figure>\n\n      <figure class=\"box\">\n\n        <img src=\"https://source.unsplash.com/collection/1999207\" />\n\n        <figcaption>Political</figcaption>\n\n      </figure>\n\n      <figure class=\"box\">\n\n        <img src=\"https://source.unsplash.com/collection/827807\" />\n\n        <figcaption>Technic</figcaption>\n\n      </figure>\n\n      <figure class=\"box\">\n\n        <img src=\"https://source.unsplash.com/collection/1538150\" />\n\n        <figcaption>Milkyway</figcaption>\n\n      </figure>\n\n      <figure class=\"box\">\n\n        <img src=\"https://source.unsplash.com/collection/1424240\" />\n\n        <figcaption>Animals</figcaption>\n\n      </figure>\n\n      <figure class=\"box\">\n\n        <img src=\"https://source.unsplash.com/collection/1767181\" />\n\n        <figcaption>Blancs</figcaption>\n\n      </figure>\n      --></div><!--\n    <img class=\"w-full rounded-xl shadow\" src=\"./masonry-01.jpg\" width=\"232\" height=\"290\" alt=\"Image 01\" />\n    <img class=\"w-full rounded-xl shadow\" src=\"./masonry-02.jpg\" width=\"232\" height=\"290\" alt=\"Image 02\" />\n    <img class=\"w-full rounded-xl shadow\" src=\"https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg\" width=\"232\" height=\"174\" alt=\"Image 03\" />\n    <img class=\"w-full rounded-xl shadow\" src=\"./masonry-04.jpg\" width=\"232\" height=\"155\" alt=\"Image 04\" />\n    <img class=\"w-full rounded-xl shadow\" src=\"./masonry-05.jpg\" width=\"232\" height=\"349\" alt=\"Image 05\" />\n    <img class=\"w-full rounded-xl shadow\" src=\"./masonry-06.jpg\" width=\"232\" height=\"250\" alt=\"Image 06\" />\n    <img class=\"w-full rounded-xl shadow\" src=\"./masonry-07.jpg\" width=\"232\" height=\"349\" alt=\"Image 07\" />\n    <img class=\"w-full rounded-xl shadow\" src=\"./masonry-08.jpg\" width=\"232\" height=\"155\" alt=\"Image 08\" />\n    <img class=\"w-full rounded-xl shadow\" src=\"./masonry-09.jpg\" width=\"232\" height=\"250\" alt=\"Image 09\" />\n    <img class=\"w-full rounded-xl shadow\" src=\"./masonry-10.jpg\" width=\"232\" height=\"290\" alt=\"Image 10\" />\n    <img class=\"w-full rounded-xl shadow\" src=\"./masonry-11.jpg\" width=\"232\" height=\"155\" alt=\"Image 11\" />\n    <img class=\"w-full rounded-xl shadow\" src=\"./masonry-12.jpg\" width=\"232\" height=\"309\" alt=\"Image 12\" />\n    -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
