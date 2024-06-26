@@ -1,6 +1,9 @@
 package scopes
 
-func Paginate(page, pageSize int) (string, []interface{}) {
+import "fmt"
+
+func Paginate(page, pageSize int) (string, []any) {
+    fmt.Printf("%d and %d\n", page, pageSize)
     if page <= 0 {
         page = 1
     }
@@ -14,7 +17,7 @@ func Paginate(page, pageSize int) (string, []interface{}) {
 
     offset := (page - 1) * pageSize
     query := "LIMIT $1 OFFSET $2"
-    args := []interface{}{pageSize, offset}
+    args := []any{pageSize, offset}
 
     return query, args
 }

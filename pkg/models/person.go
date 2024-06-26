@@ -17,4 +17,5 @@ type Person struct {
 type PersonRepository interface {
     Insert(ctx echo.Context, value *Person) error
     Count() int
+    Get(limitQuery string, argsData []any) ([]Person, error)
 }

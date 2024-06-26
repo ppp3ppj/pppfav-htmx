@@ -3,11 +3,14 @@ package dashboard
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/labstack/echo/v4"
 	"github.com/ppp3ppj/pppfav-htmx/pkg/models"
 	"github.com/ppp3ppj/pppfav-htmx/template"
+	"github.com/ppp3ppj/pppfav-htmx/utils/constants"
+	"github.com/ppp3ppj/pppfav-htmx/utils/scopes"
 	views_person_card "github.com/ppp3ppj/pppfav-htmx/views/components/personCard"
 	views_dashboards_persons "github.com/ppp3ppj/pppfav-htmx/views/pages/dashboards/persons"
 	views_dashboards_persons_new "github.com/ppp3ppj/pppfav-htmx/views/pages/dashboards/persons/create"
@@ -132,4 +135,25 @@ func (fe *DashboardFrontend) PersonsPush(c echo.Context) error {
     })
 
     return template.AssertRender(c, http.StatusOK, personsNew)
+}
+
+func (fe *DashboardFrontend) Persons(c echo.Context) error {
+    page, _ := strconv.Atoi(c.QueryParam(constants.PAGE))
+    pageSize , _ := strconv.Atoi(c.QueryParam(constants.PAGE_SIZE))
+    source := c.QueryParam(constants.TARGET_SOURCE)
+
+    hx_request, _ := strconv.ParseBool(c.Request().Header.Get("Hx-Request"))
+
+	partial := source == constants.TARGET_SOURCE_PARTIAL && hx_request
+    _ = partial
+
+    count := fe.PersonRepo.Count()
+    fmt.Printf("Persons is %d.\n", count)
+    n, q := scopes.Paginate(page, pageSize)
+    fmt.Println(n)
+    fmt.Println(q)
+    data, _ := fe.PersonRepo.Get(n, q)
+    fmt.Println(data)
+
+    return nil
 }

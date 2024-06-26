@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"fmt"
+
 	"github.com/jmoiron/sqlx"
 	"github.com/labstack/echo/v4"
 	"github.com/ppp3ppj/pppfav-htmx/pkg/models"
@@ -37,6 +39,21 @@ func (r *repository) Count() int {
     }
 
     return count
+}
+
+func (r *repository) Get(limitQuery string, argsData []any) ([]models.Person, error) {
+    var persons []models.Person
+    baseQuery := `SELECT id, name, age, birth_date, image_url, description
+        FROM "Person"
+        ORDER BY id`
+
+    fullQuery := baseQuery + " " + limitQuery
+    fmt.Printf("Executing SQL query: %s with args: %v\n", fullQuery, argsData)
+    err := r.db.Select(&persons, fullQuery, argsData...)
+    if err != nil {
+        return nil, err
+    }
+    return persons, nil
 }
 
 func NewPersonRepository(db *sqlx.DB) models.PersonRepository {
