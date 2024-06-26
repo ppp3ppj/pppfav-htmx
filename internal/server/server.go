@@ -70,7 +70,8 @@ func (s * echoServer) Start() {
     // Register template templ
     template.NewTemplateRenderer(s.app)
     // for use upload image baseurl
-    baseURL := fmt.Sprintf("%s:%d", "localhost", s.conf.Server.Port)
+    hostName := "http://"
+    baseURL := fmt.Sprintf("%s%s:%d", hostName, "localhost", s.conf.Server.Port)
 
     baseGroup := s.app.Group("")
     dashboard.NewDashBoardFrontend(baseGroup, s.db.Connect(), personRepo, imageService, baseURL)
