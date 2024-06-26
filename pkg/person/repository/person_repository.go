@@ -29,6 +29,16 @@ func (r *repository) Insert(ctx echo.Context, value *models.Person) error {
     return nil
 }
 
+func (r *repository) Count() int {
+    var count int
+    err := r.db.Get(&count, `SELECT COUNT(*) FROM "Person"`)
+    if err != nil {
+        return 0
+    }
+
+    return count
+}
+
 func NewPersonRepository(db *sqlx.DB) models.PersonRepository {
     return &repository{
         db: db,

@@ -16,4 +16,5 @@ type Person struct {
 
 type PersonRepository interface {
     Insert(ctx echo.Context, value *Person) error
+    Count() int
 }
