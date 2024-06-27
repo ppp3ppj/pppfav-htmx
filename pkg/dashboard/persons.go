@@ -34,6 +34,21 @@ func (fe *DashboardFrontend) IndexPersons(c echo.Context) error {
     return template.AssertRender(c, http.StatusOK, personDisplay)
 }
 
+
+func (fe *DashboardFrontend) PersonsImageMasonry(c echo.Context) error {
+    opts := views_variables.DashboardOpts{
+        Nav: nav(0),
+    }
+    mockPerson := mockData()
+    personVm := views_dashboards_persons.PersonsImageVm{
+        Opts: opts,
+        Persons: mockPerson,
+    }
+    personsImageMasonryDashboard := views_dashboards_persons.PersonsImageViewContent(personVm)
+
+    return template.AssertRender(c, http.StatusOK, personsImageMasonryDashboard)
+}
+
 func (fe *DashboardFrontend) Articles(c echo.Context) error {
 
     opts := views_variables.DashboardOpts{
@@ -66,7 +81,7 @@ func mockData() []models.Person {
             Name:        "Bob Smith",
             Age:         35,
             BirthDate:   time.Date(1988, time.February, 20, 0, 0, 0, 0, time.UTC),
-            ImageURL:    "https://example.com/images/bob.jpg",
+            ImageURL:    "/uploads/6431467b554c450fbe29a9b9e30ce1b4.jpg",
             Description: "Bob is a graphic designer who loves to work on creative projects.",
         },
         {
@@ -74,7 +89,7 @@ func mockData() []models.Person {
             Name:        "Carol Davis",
             Age:         42,
             BirthDate:   time.Date(1981, time.July, 15, 0, 0, 0, 0, time.UTC),
-            ImageURL:    "https://example.com/images/carol.jpg",
+            ImageURL:    "/uploads/6431467b554c450fbe29a9b9e30ce1b4.jpg",
             Description: "Carol is a project manager with over 20 years of experience in the industry.",
         },
         {
@@ -82,7 +97,7 @@ func mockData() []models.Person {
             Name:        "David Brown",
             Age:         30,
             BirthDate:   time.Date(1993, time.December, 5, 0, 0, 0, 0, time.UTC),
-            ImageURL:    "https://example.com/images/david.jpg",
+            ImageURL:    "/uploads/6431467b554c450fbe29a9b9e30ce1b4.jpg",
             Description: "David is a data scientist who specializes in machine learning and AI.",
         },
         {
@@ -90,7 +105,87 @@ func mockData() []models.Person {
             Name:        "Eve Wilson",
             Age:         25,
             BirthDate:   time.Date(1999, time.May, 30, 0, 0, 0, 0, time.UTC),
-            ImageURL:    "https://example.com/images/eve.jpg",
+            ImageURL:    "/uploads/6431467b554c450fbe29a9b9e30ce1b4.jpg",
+            Description: "Eve is a marketing specialist with a talent for digital campaigns.",
+        },
+        {
+            ID:          "oeuou",
+            Name:        "Eve Wilson",
+            Age:         25,
+            BirthDate:   time.Date(1999, time.May, 30, 0, 0, 0, 0, time.UTC),
+            ImageURL:    "/uploads/6431467b554c450fbe29a9b9e30ce1b4.jpg",
+            Description: "Eve is a marketing specialist with a talent for digital campaigns.",
+        },
+        {
+            ID:          "oeuou",
+            Name:        "Eve Wilson",
+            Age:         25,
+            BirthDate:   time.Date(1999, time.May, 30, 0, 0, 0, 0, time.UTC),
+            ImageURL:    "/uploads/6431467b554c450fbe29a9b9e30ce1b4.jpg",
+            Description: "Eve is a marketing specialist with a talent for digital campaigns.",
+        },
+        {
+            ID:          "oeuou",
+            Name:        "Eve Wilson",
+            Age:         25,
+            BirthDate:   time.Date(1999, time.May, 30, 0, 0, 0, 0, time.UTC),
+            ImageURL:    "/uploads/6431467b554c450fbe29a9b9e30ce1b4.jpg",
+            Description: "Eve is a marketing specialist with a talent for digital campaigns.",
+        },
+        {
+            ID:          "oeuou",
+            Name:        "Eve Wilson",
+            Age:         25,
+            BirthDate:   time.Date(1999, time.May, 30, 0, 0, 0, 0, time.UTC),
+            ImageURL:    "/uploads/6431467b554c450fbe29a9b9e30ce1b4.jpg",
+            Description: "Eve is a marketing specialist with a talent for digital campaigns.",
+        },
+        {
+            ID:          "oeuou",
+            Name:        "Eve Wilson",
+            Age:         25,
+            BirthDate:   time.Date(1999, time.May, 30, 0, 0, 0, 0, time.UTC),
+            ImageURL:    "/uploads/6431467b554c450fbe29a9b9e30ce1b4.jpg",
+            Description: "Eve is a marketing specialist with a talent for digital campaigns.",
+        },
+        {
+            ID:          "oeuou",
+            Name:        "Eve Wilson",
+            Age:         25,
+            BirthDate:   time.Date(1999, time.May, 30, 0, 0, 0, 0, time.UTC),
+            ImageURL:    "/uploads/6431467b554c450fbe29a9b9e30ce1b4.jpg",
+            Description: "Eve is a marketing specialist with a talent for digital campaigns.",
+        },
+        {
+            ID:          "oeuou",
+            Name:        "Eve Wilson",
+            Age:         25,
+            BirthDate:   time.Date(1999, time.May, 30, 0, 0, 0, 0, time.UTC),
+            ImageURL:    "/uploads/6431467b554c450fbe29a9b9e30ce1b4.jpg",
+            Description: "Eve is a marketing specialist with a talent for digital campaigns.",
+        },
+        {
+            ID:          "oeuou",
+            Name:        "Eve Wilson",
+            Age:         25,
+            BirthDate:   time.Date(1999, time.May, 30, 0, 0, 0, 0, time.UTC),
+            ImageURL:    "/uploads/6431467b554c450fbe29a9b9e30ce1b4.jpg",
+            Description: "Eve is a marketing specialist with a talent for digital campaigns.",
+        },
+        {
+            ID:          "oeuou",
+            Name:        "Eve Wilson",
+            Age:         25,
+            BirthDate:   time.Date(1999, time.May, 30, 0, 0, 0, 0, time.UTC),
+            ImageURL:    "/uploads/6431467b554c450fbe29a9b9e30ce1b4.jpg",
+            Description: "Eve is a marketing specialist with a talent for digital campaigns.",
+        },
+        {
+            ID:          "oeuou",
+            Name:        "Eve Wilson",
+            Age:         25,
+            BirthDate:   time.Date(1999, time.May, 30, 0, 0, 0, 0, time.UTC),
+            ImageURL:    "/uploads/6431467b554c450fbe29a9b9e30ce1b4.jpg",
             Description: "Eve is a marketing specialist with a talent for digital campaigns.",
         },
     }
