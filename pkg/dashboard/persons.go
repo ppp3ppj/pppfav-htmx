@@ -34,6 +34,21 @@ func (fe *DashboardFrontend) IndexPersons(c echo.Context) error {
     return template.AssertRender(c, http.StatusOK, personDisplay)
 }
 
+
+func (fe *DashboardFrontend) PersonsImageMasonry(c echo.Context) error {
+    opts := views_variables.DashboardOpts{
+        Nav: nav(0),
+    }
+    mockPerson := mockData()
+    personVm := views_dashboards_persons.PersonsImageVm{
+        Opts: opts,
+        Persons: mockPerson,
+    }
+    personsImageMasonryDashboard := views_dashboards_persons.PersonsImageViewContent(personVm)
+
+    return template.AssertRender(c, http.StatusOK, personsImageMasonryDashboard)
+}
+
 func (fe *DashboardFrontend) Articles(c echo.Context) error {
 
     opts := views_variables.DashboardOpts{
