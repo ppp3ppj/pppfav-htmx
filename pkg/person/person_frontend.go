@@ -10,12 +10,18 @@ type PersonFrontend struct {
 }
 
 func NewPersonFrontend(
-    g *echo.Context,
+    g *echo.Group,
     repo models.PersonRepository,
 ) {
     fe := &PersonFrontend{
         repo: repo,
     }
     _ = fe
+
+    g.GET("/persons/validate/name", fe.ValidateName)
+}
+
+func (fe *PersonFrontend) ValidateName(c echo.Context) error {
+    return nil
 }
 

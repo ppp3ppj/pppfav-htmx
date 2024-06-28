@@ -16,6 +16,7 @@ import (
 	"github.com/ppp3ppj/pppfav-htmx/db"
 	server_middlewares "github.com/ppp3ppj/pppfav-htmx/internal/middlewares"
 	"github.com/ppp3ppj/pppfav-htmx/pkg/dashboard"
+	"github.com/ppp3ppj/pppfav-htmx/pkg/person"
 	"github.com/ppp3ppj/pppfav-htmx/pkg/person/repository"
 	"github.com/ppp3ppj/pppfav-htmx/template"
 	"github.com/ppp3ppj/pppfav-htmx/utils/image_service"
@@ -75,6 +76,8 @@ func (s * echoServer) Start() {
 
     baseGroup := s.app.Group("")
     dashboard.NewDashBoardFrontend(baseGroup, s.db.Connect(), personRepo, imageService, baseURL)
+
+    person.NewPersonFrontend(baseGroup, personRepo)
 
     // Graceful Shutdown
     quitCh := make(chan os.Signal, 1)

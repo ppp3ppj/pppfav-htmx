@@ -59,7 +59,10 @@ templ new(existingPerson *models.Person, baseURL string) {
                 <span class="label-text">What is your name?</span>
                 <span class="label-text-alt">Top Right label</span>
               </div>
-              <input type="text" placeholder="Type here" class="input input-bordered w-full md:max-w-3xl lg:max-w-4xl" />
+              <input
+                  name="name"
+                  hx-post="/persons/validate/name"
+                  type="text" placeholder="Type here" class="input input-bordered w-full md:max-w-3xl lg:max-w-4xl" />
               <div class="label">
                 <span class="label-text-alt">Bottom Left label</span>
                 <span class="label-text-alt">Bottom Right label</span>
