@@ -5,6 +5,7 @@ import "github.com/ppp3ppj/pppfav-htmx/pkg/models"
 import "github.com/ppp3ppj/pppfav-htmx/views/pages/dashboards"
 //import "fmt"
 import "github.com/ppp3ppj/pppfav-htmx/utils/ternary"
+import  views_dashboards_persons_new_components "github.com/ppp3ppj/pppfav-htmx/views/pages/dashboards/persons/create/components"
 
 type NewPersonVM struct {
     Opts views_variables.DashboardOpts
@@ -54,6 +55,8 @@ templ new(existingPerson *models.Person, baseURL string) {
             </label>
 
             <!-- Name Field -->
+            @views_dashboards_persons_new_components.NameFieldLabelValidation("", "Default", "")
+            <!--
             <label
                 hx-target="this"
                 hx-swap="outerHTML"
@@ -71,6 +74,7 @@ templ new(existingPerson *models.Person, baseURL string) {
                 <span class="label-text-alt">Bottom Right label</span>
               </div>
             </label>
+            -->
 
 
             <!-- Age Field -->

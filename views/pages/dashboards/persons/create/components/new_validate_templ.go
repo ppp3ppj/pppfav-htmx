@@ -25,7 +25,7 @@ func NameFieldLabelValidation(nameContent, statusType, errMessage string) templ.
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!-- Name Field --><label hx-target=\"this\" hx-swap=\"outerHTML\" class=\"form-control\"><div class=\"label\"><span class=\"label-text\">What is your name?</span> <span class=\"label-text-alt\">Top Right label</span></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!-- Name Field --><label id=\"lblNameField\" hx-target=\"#lblNameField\" hx-swap=\"outerHTML\" class=\"form-control\"><div class=\"label\"><span class=\"label-text\">What is your name?</span></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -34,20 +34,30 @@ func NameFieldLabelValidation(nameContent, statusType, errMessage string) templ.
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input name=\"name\" hx-post=\"/persons/validate/name\" type=\"text\" placeholder=\"Type here\" value=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input name=\"name\" hx-post=\"/persons/validate/name\" type=\"text\" placeholder=\"Enter Name\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var3 string
-		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(nameContent)
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/dashboards/persons/create/components/new_validate.templ`, Line: 19, Col: 29}
+		if len(nameContent) != 0 {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" value=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var3 string
+			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(nameContent)
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/dashboards/persons/create/components/new_validate.templ`, Line: 20, Col: 33}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" class=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -65,20 +75,20 @@ func NameFieldLabelValidation(nameContent, statusType, errMessage string) templ.
 			return templ_7745c5c3_Err
 		}
 		if len(errMessage) != 0 {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"label\"><span class=\"label-text-alt\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"label\"><span class=\"label-text-alt text-error\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var5 string
 			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(errMessage)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/dashboards/persons/create/components/new_validate.templ`, Line: 23, Col: 49}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/pages/dashboards/persons/create/components/new_validate.templ`, Line: 25, Col: 64}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</span> <span class=\"label-text-alt\">Bottom Right label</span></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</span></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -96,7 +106,7 @@ func NameFieldLabelValidation(nameContent, statusType, errMessage string) templ.
 
 func nameInputClassValidate(status string) string {
 	// Define the common classes.
-	commonClasses := "input-bordered w-full md:max-w-3xl lg:max-w-4xl"
+	commonClasses := "input input-bordered w-full md:max-w-3xl lg:max-w-4xl"
 
 	// Define a map for specific status classes.
 	statusClasses := map[string]string{
@@ -107,7 +117,7 @@ func nameInputClassValidate(status string) string {
 
 	// Get the specific class for the given status, if it exists.
 	if specificClass, exists := statusClasses[status]; exists {
-		return fmt.Sprintf("input %s %s", specificClass, commonClasses)
+		return fmt.Sprintf("%s %s", specificClass, commonClasses)
 	}
 
 	// Return the common classes if no specific class was found for the status.

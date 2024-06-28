@@ -5,31 +5,32 @@ import "fmt"
 templ NameFieldLabelValidation(nameContent, statusType, errMessage string) {
     <!-- Name Field -->
     <label
-        hx-target="this"
+        id="lblNameField"
+        hx-target="#lblNameField"
         hx-swap="outerHTML"
         class="form-control">
       <div class="label">
         <span class="label-text">What is your name?</span>
-        <span class="label-text-alt">Top Right label</span>
       </div>
       <input
           name="name"
           hx-post="/persons/validate/name"
-          type="text" placeholder="Type here"
-          value={ nameContent }
+          type="text" placeholder="Enter Name"
+          if len(nameContent) != 0 {
+              value={ nameContent }
+          }
           class={ nameInputClassValidate(statusType) } />
-    if len(errMessage) != 0 {
-      <div class="label">
-        <span class="label-text-alt">{ errMessage}</span>
-        <span class="label-text-alt">Bottom Right label</span>
-      </div>
-    }
+        if len(errMessage) != 0 {
+          <div class="label">
+            <span class="label-text-alt text-error">{ errMessage}</span>
+          </div>
+        }
     </label>
 }
 
 func nameInputClassValidate(status string) string {
     // Define the common classes.
-    commonClasses := "input-bordered w-full md:max-w-3xl lg:max-w-4xl"
+    commonClasses := "input input-bordered w-full md:max-w-3xl lg:max-w-4xl"
 
     // Define a map for specific status classes.
     statusClasses := map[string]string{
@@ -40,7 +41,7 @@ func nameInputClassValidate(status string) string {
 
     // Get the specific class for the given status, if it exists.
     if specificClass, exists := statusClasses[status]; exists {
-        return fmt.Sprintf("input %s %s", specificClass, commonClasses)
+        return fmt.Sprintf("%s %s", specificClass, commonClasses)
     }
 
     // Return the common classes if no specific class was found for the status.
