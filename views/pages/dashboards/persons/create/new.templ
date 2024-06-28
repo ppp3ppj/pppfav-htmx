@@ -54,7 +54,10 @@ templ new(existingPerson *models.Person, baseURL string) {
             </label>
 
             <!-- Name Field -->
-            <label class="form-control">
+            <label
+                hx-target="this"
+                hx-swap="outerHTML"
+                class="form-control">
               <div class="label">
                 <span class="label-text">What is your name?</span>
                 <span class="label-text-alt">Top Right label</span>
