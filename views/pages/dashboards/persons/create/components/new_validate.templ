@@ -2,27 +2,37 @@ package views_dashboards_persons_new_components
 
 import "fmt"
 
-templ NameFieldLabelValidation(nameContent, statusType, errMessage string) {
+type NewPersonVadidateVM struct {
+    ElementId string
+    TitleName string
+    ContentName string
+    StatusType string
+    ErrorMessage string
+    BasePath string
+}
+
+templ NameFieldLabelValidation(personValidate NewPersonVadidateVM) {
     <!-- Name Field -->
     <label
-        id="lblNameField"
-        hx-target="#lblNameField"
+        id={ personValidate.ElementId }
+        hx-target={ fmt.Sprintf("%s%s", "#", personValidate.ElementId) }
         hx-swap="outerHTML"
         class="form-control">
       <div class="label">
-        <span class="label-text">What is your name?</span>
+        <span class="label-text">{ personValidate.TitleName }</span>
       </div>
       <input
           name="name"
-          hx-post="/persons/validate/name"
-          type="text" placeholder="Enter Name"
-          if len(nameContent) != 0 {
-              value={ nameContent }
+          hx-post={ personValidate.BasePath }
+          type="text"
+          placeholder={ fmt.Sprintf("%s %s", "Enter", "Test") }
+          if len(personValidate.ContentName) != 0 {
+              value={ personValidate.ContentName }
           }
-          class={ nameInputClassValidate(statusType) } />
-        if len(errMessage) != 0 {
+          class={ nameInputClassValidate(personValidate.StatusType) } />
+        if len(personValidate.ErrorMessage) != 0 {
           <div class="label">
-            <span class="label-text-alt text-error">{ errMessage}</span>
+            <span class="label-text-alt text-error">{ personValidate.ErrorMessage }</span>
           </div>
         }
     </label>

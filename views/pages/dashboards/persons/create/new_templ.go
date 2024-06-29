@@ -69,7 +69,11 @@ func new(existingPerson *models.Person, baseURL string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = views_dashboards_persons_new_components.NameFieldLabelValidation("", "Default", "").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = views_dashboards_persons_new_components.NameFieldLabelValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
+			ElementId: "lblFieldName",
+			TitleName: "What is your name",
+			BasePath:  "/persons/validate/name",
+		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

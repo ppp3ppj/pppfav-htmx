@@ -55,7 +55,11 @@ templ new(existingPerson *models.Person, baseURL string) {
             </label>
 
             <!-- Name Field -->
-            @views_dashboards_persons_new_components.NameFieldLabelValidation("", "Default", "")
+            @views_dashboards_persons_new_components.NameFieldLabelValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
+                ElementId: "lblFieldName",
+                TitleName: "What is your name",
+                BasePath: "/persons/validate/name",
+            })
             <!--
             <label
                 hx-target="this"

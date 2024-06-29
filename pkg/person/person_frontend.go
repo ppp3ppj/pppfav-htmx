@@ -33,11 +33,20 @@ func (fe *PersonFrontend) ValidateName(c echo.Context) error {
     name := c.FormValue("name")
     fmt.Println(name)
     ok, strErr := validateName(name)
+    newVM := views_dashboards_persons_new_components.NewPersonVadidateVM{
+        ElementId: "lblFieldName",
+        TitleName: "What is your name",
+        BasePath: "/persons/validate/name",
+        ContentName: name,
+    }
     if ok {
-        validateViewOK := views_dashboards_persons_new_components.NameFieldLabelValidation(name, "Success", "")
+        newVM.StatusType = "Success"
+        validateViewOK := views_dashboards_persons_new_components.NameFieldLabelValidation(newVM)
         return template.AssertRender(c, http.StatusOK, validateViewOK)
     } else {
-        validateViewErr := views_dashboards_persons_new_components.NameFieldLabelValidation(name, "Error", strErr)
+        newVM.StatusType = "Error"
+        newVM.ErrorMessage = strErr
+        validateViewErr := views_dashboards_persons_new_components.NameFieldLabelValidation(newVM)
         return template.AssertRender(c, http.StatusOK, validateViewErr)
     }
 }
