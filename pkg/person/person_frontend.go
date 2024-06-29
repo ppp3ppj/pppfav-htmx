@@ -41,9 +41,20 @@ func (fe *PersonFrontend) ValidateName(c echo.Context) error {
         ContentName: name,
     }
     if ok {
-        newVM.StatusType = "Success"
-        validateViewOK := views_dashboards_persons_new_components.NameFieldLabelValidation(newVM)
-        return template.AssertRender(c, http.StatusOK, validateViewOK)
+        nameExists, err := fe.repo.CheckNameExists(newVM.ContentName)
+        fmt.Println("Data is ")
+        fmt.Printf("%t", nameExists)
+        _ = err
+        if nameExists {
+            newVM.StatusType = "Error"
+            newVM.ErrorMessage = "Name is exists"
+            validateViewOK := views_dashboards_persons_new_components.NameFieldLabelValidation(newVM)
+            return template.AssertRender(c, http.StatusOK, validateViewOK)
+        } else {
+            newVM.StatusType = "Success"
+            validateViewErr := views_dashboards_persons_new_components.NameFieldLabelValidation(newVM)
+            return template.AssertRender(c, http.StatusOK, validateViewErr)
+        }
     } else {
         newVM.StatusType = "Error"
         newVM.ErrorMessage = strErr

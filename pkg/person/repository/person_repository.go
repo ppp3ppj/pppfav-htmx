@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"fmt"
+
 	"github.com/jmoiron/sqlx"
 	"github.com/labstack/echo/v4"
 	"github.com/ppp3ppj/pppfav-htmx/pkg/models"
@@ -38,6 +40,19 @@ func (r *repository) Count() int {
 
     return count
 }
+
+// CheckNameExists checks if a name exists in the Person table
+func (r *repository) CheckNameExists(name string) (bool, error) {
+    fmt.Printf("%s%s", "Name is db, ", name)
+    var exists bool
+    query := `SELECT EXISTS(SELECT 1 FROM "Person" WHERE "name"=$1)`
+    err := r.db.Get(&exists, query, name)
+    if err != nil {
+        return false, fmt.Errorf("error checking name existence: %v", err)
+    }
+    return exists, nil
+}
+
 
 func NewPersonRepository(db *sqlx.DB) models.PersonRepository {
     return &repository{
