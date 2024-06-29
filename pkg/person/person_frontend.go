@@ -34,7 +34,8 @@ func (fe *PersonFrontend) ValidateName(c echo.Context) error {
     fmt.Println(name)
     ok, strErr := validateName(name)
     newVM := views_dashboards_persons_new_components.NewPersonVadidateVM{
-        ElementId: "lblFieldName",
+        LabelId: "lblFieldName",
+        InputId: "name",
         TitleName: "What is your name",
         BasePath: "/persons/validate/name",
         ContentName: name,

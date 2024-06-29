@@ -56,7 +56,8 @@ templ new(existingPerson *models.Person, baseURL string) {
 
             <!-- Name Field -->
             @views_dashboards_persons_new_components.NameFieldLabelValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
-                ElementId: "lblFieldName",
+                LabelId: "lblFieldName",
+                InputId: "name",
                 TitleName: "What is your name",
                 BasePath: "/persons/validate/name",
             })

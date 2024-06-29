@@ -70,7 +70,8 @@ func new(existingPerson *models.Person, baseURL string) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Err = views_dashboards_persons_new_components.NameFieldLabelValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
-			ElementId: "lblFieldName",
+			LabelId:   "lblFieldName",
+			InputId:   "name",
 			TitleName: "What is your name",
 			BasePath:  "/persons/validate/name",
 		}).Render(ctx, templ_7745c5c3_Buffer)

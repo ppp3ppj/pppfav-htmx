@@ -3,7 +3,8 @@ package views_dashboards_persons_new_components
 import "fmt"
 
 type NewPersonVadidateVM struct {
-    ElementId string
+    LabelId string
+    InputId string
     TitleName string
     ContentName string
     StatusType string
@@ -14,15 +15,15 @@ type NewPersonVadidateVM struct {
 templ NameFieldLabelValidation(personValidate NewPersonVadidateVM) {
     <!-- Name Field -->
     <label
-        id={ personValidate.ElementId }
-        hx-target={ fmt.Sprintf("%s%s", "#", personValidate.ElementId) }
+        id={ personValidate.LabelId }
+        hx-target={ fmt.Sprintf("%s%s", "#", personValidate.LabelId) }
         hx-swap="outerHTML"
         class="form-control">
       <div class="label">
         <span class="label-text">{ personValidate.TitleName }</span>
       </div>
       <input
-          name="name"
+          name={ personValidate.InputId }
           hx-post={ personValidate.BasePath }
           type="text"
           placeholder={ fmt.Sprintf("%s %s", "Enter", "Test") }
