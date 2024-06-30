@@ -61,52 +61,23 @@ templ new(existingPerson *models.Person, baseURL string) {
                 TitleName: "What is your name",
                 BasePath: "/persons/validate/name",
             })
-            <!--
-            <label
-                hx-target="this"
-                hx-swap="outerHTML"
-                class="form-control">
-              <div class="label">
-                <span class="label-text">What is your name?</span>
-                <span class="label-text-alt">Top Right label</span>
-              </div>
-              <input
-                  name="name"
-                  hx-post="/persons/validate/name"
-                  type="text" placeholder="Type here" class="input input-bordered w-full md:max-w-3xl lg:max-w-4xl" />
-              <div class="label">
-                <span class="label-text-alt">Bottom Left label</span>
-                <span class="label-text-alt">Bottom Right label</span>
-              </div>
-            </label>
-            -->
 
 
             <!-- Age Field -->
-            <label class="form-control">
-              <div class="label">
-                <span class="label-text">What is your name?</span>
-                <span class="label-text-alt">Top Right label</span>
-              </div>
-              <input type="text" placeholder="Type here" class="input input-bordered w-full md:max-w-3xl lg:max-w-4xl" />
-              <div class="label">
-                <span class="label-text-alt">Bottom Left label</span>
-                <span class="label-text-alt">Bottom Right label</span>
-              </div>
-            </label>
+            @views_dashboards_persons_new_components.NameFieldLabelValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
+                LabelId: "lblFieldAge",
+                InputId: "age",
+                TitleName: "What is your age",
+                BasePath: "/persons/validate/age",
+            })
 
           <!-- Birth date Field -->
-            <label class="form-control">
-              <div class="label">
-                <span class="label-text">What is your name?</span>
-                <span class="label-text-alt">Top Right label</span>
-              </div>
-              <input type="date" placeholder="Type here" class="input input-bordered w-full md:max-w-3xl lg:max-w-4xl" />
-              <div class="label">
-                <span class="label-text-alt">Bottom Left label</span>
-                <span class="label-text-alt">Bottom Right label</span>
-              </div>
-            </label>
+         @views_dashboards_persons_new_components.NameFieldLabelValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
+                LabelId: "lblFieldBirthDate",
+                InputId: "birthdate",
+                TitleName: "What is your birthdate",
+                BasePath: "/persons/validate/birthdate",
+            })
 
             <!-- Description Field -->
             <label class="form-control">

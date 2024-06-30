@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"regexp"
+	"strconv"
 	"strings"
 
 	"github.com/labstack/echo/v4"
@@ -26,12 +27,35 @@ func NewPersonFrontend(
     _ = fe
 
     g.POST("/persons/validate/name", fe.ValidateName)
+    g.POST("/persons/validate/age", fe.ValidateAge)
+    //g.POST("/persons/validate/birthdate", )
+}
+
+func (fe *PersonFrontend) ValidateAge(c echo.Context) error {
+    age := c.FormValue("age")
+    ok, errorMessage := validateAge(age)
+    ageComponent := views_dashboards_persons_new_components.NewPersonVadidateVM{
+        LabelId: "lblFieldAge",
+        InputId: "age",
+        TitleName: "What is your age",
+        BasePath: "/persons/validate/age",
+        ContentName: age,
+    }
+
+    if ok {
+        ageComponent.StatusType = "Success"
+        validateViewOK := views_dashboards_persons_new_components.NameFieldLabelValidation(ageComponent)
+        return template.AssertRender(c, http.StatusOK, validateViewOK)
+    } else {
+        ageComponent.StatusType = "Error"
+        ageComponent.ErrorMessage = errorMessage
+        validateViewErr := views_dashboards_persons_new_components.NameFieldLabelValidation(ageComponent)
+        return template.AssertRender(c, http.StatusOK, validateViewErr)
+    }
 }
 
 func (fe *PersonFrontend) ValidateName(c echo.Context) error {
-    fmt.Println("ppppValidate")
     name := c.FormValue("name")
-    fmt.Println(name)
     ok, strErr := validateName(name)
     newVM := views_dashboards_persons_new_components.NewPersonVadidateVM{
         LabelId: "lblFieldName",
@@ -85,4 +109,31 @@ func validateName(name string) (bool, string) {
 	}
 
 	return true, "The name is valid."
+}
+// Validate the age.
+// if -0 is 0 will not error
+func validateAge(age string) (bool, string) {
+	trimmedAge := strings.TrimSpace(age)
+
+	if len(trimmedAge) == 0 {
+		return false, "The age cannot be empty."
+	}
+
+	// Check if the age is a valid number.
+	if _, err := strconv.Atoi(trimmedAge); err != nil {
+		return false, "The age must be a valid number."
+	}
+
+	// Convert age to an integer.
+	intAge, err := strconv.Atoi(trimmedAge)
+	if err != nil {
+		return false, "Error in processing the age."
+	}
+
+	// Validate the age range.
+	if intAge < 0 || intAge > 100 {
+		return false, "The age must be between 0 and 100."
+	}
+
+	return true, "The age is valid."
 }

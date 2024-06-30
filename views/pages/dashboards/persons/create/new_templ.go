@@ -78,7 +78,33 @@ func new(existingPerson *models.Person, baseURL string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!--\n            <label\n                hx-target=\"this\"\n                hx-swap=\"outerHTML\"\n                class=\"form-control\">\n              <div class=\"label\">\n                <span class=\"label-text\">What is your name?</span>\n                <span class=\"label-text-alt\">Top Right label</span>\n              </div>\n              <input\n                  name=\"name\"\n                  hx-post=\"/persons/validate/name\"\n                  type=\"text\" placeholder=\"Type here\" class=\"input input-bordered w-full md:max-w-3xl lg:max-w-4xl\" />\n              <div class=\"label\">\n                <span class=\"label-text-alt\">Bottom Left label</span>\n                <span class=\"label-text-alt\">Bottom Right label</span>\n              </div>\n            </label>\n            --><!-- Age Field --><label class=\"form-control\"><div class=\"label\"><span class=\"label-text\">What is your name?</span> <span class=\"label-text-alt\">Top Right label</span></div><input type=\"text\" placeholder=\"Type here\" class=\"input input-bordered w-full md:max-w-3xl lg:max-w-4xl\"><div class=\"label\"><span class=\"label-text-alt\">Bottom Left label</span> <span class=\"label-text-alt\">Bottom Right label</span></div></label><!-- Birth date Field --><label class=\"form-control\"><div class=\"label\"><span class=\"label-text\">What is your name?</span> <span class=\"label-text-alt\">Top Right label</span></div><input type=\"date\" placeholder=\"Type here\" class=\"input input-bordered w-full md:max-w-3xl lg:max-w-4xl\"><div class=\"label\"><span class=\"label-text-alt\">Bottom Left label</span> <span class=\"label-text-alt\">Bottom Right label</span></div></label><!-- Description Field --><label class=\"form-control\"><div class=\"label\"><span class=\"label-text\">Your bio</span> <span class=\"label-text-alt\">Alt label</span></div><textarea class=\"textarea textarea-bordered h-24\" placeholder=\"Bio\"></textarea><div class=\"label\"><span class=\"label-text-alt\">Your bio</span> <span class=\"label-text-alt\">Alt label</span></div></label><!-- Cute Rating Field --><div class=\"form-control\"><div class=\"label\"><span class=\"label-text\">Cute Rating</span></div><div class=\"rating gap-1\"><input type=\"radio\" name=\"rating-3\" class=\"mask mask-heart bg-green-400\" checked=\"checked\"> <input type=\"radio\" name=\"rating-3\" class=\"mask mask-heart bg-lime-400\"> <input type=\"radio\" name=\"rating-3\" class=\"mask mask-heart bg-yellow-400\"> <input type=\"radio\" name=\"rating-3\" class=\"mask mask-heart bg-orange-400\"> <input type=\"radio\" name=\"rating-3\" class=\"mask mask-heart bg-red-400\"></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!-- Age Field -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = views_dashboards_persons_new_components.NameFieldLabelValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
+			LabelId:   "lblFieldAge",
+			InputId:   "age",
+			TitleName: "What is your age",
+			BasePath:  "/persons/validate/age",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!-- Birth date Field -->")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = views_dashboards_persons_new_components.NameFieldLabelValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
+			LabelId:   "lblFieldBirthDate",
+			InputId:   "birthdate",
+			TitleName: "What is your birthdate",
+			BasePath:  "/persons/validate/birthdate",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!-- Description Field --><label class=\"form-control\"><div class=\"label\"><span class=\"label-text\">Your bio</span> <span class=\"label-text-alt\">Alt label</span></div><textarea class=\"textarea textarea-bordered h-24\" placeholder=\"Bio\"></textarea><div class=\"label\"><span class=\"label-text-alt\">Your bio</span> <span class=\"label-text-alt\">Alt label</span></div></label><!-- Cute Rating Field --><div class=\"form-control\"><div class=\"label\"><span class=\"label-text\">Cute Rating</span></div><div class=\"rating gap-1\"><input type=\"radio\" name=\"rating-3\" class=\"mask mask-heart bg-green-400\" checked=\"checked\"> <input type=\"radio\" name=\"rating-3\" class=\"mask mask-heart bg-lime-400\"> <input type=\"radio\" name=\"rating-3\" class=\"mask mask-heart bg-yellow-400\"> <input type=\"radio\" name=\"rating-3\" class=\"mask mask-heart bg-orange-400\"> <input type=\"radio\" name=\"rating-3\" class=\"mask mask-heart bg-red-400\"></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
