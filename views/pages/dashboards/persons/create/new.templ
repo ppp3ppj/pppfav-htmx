@@ -63,24 +63,26 @@ templ new(existingPerson *models.Person, baseURL string) {
                 BasePath: "/persons/validate/name",
             })
 
+            <div class="grid grid-cols-2 gap-2">
+                <!-- Age Field -->
+                @views_dashboards_persons_new_components.NameFieldLabelValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
+                    LabelId: "lblFieldAge",
+                    InputId: "age",
+                    InputType: "text",
+                    TitleName: "What is your age",
+                    BasePath: "/persons/validate/age",
+                })
 
-            <!-- Age Field -->
-            @views_dashboards_persons_new_components.NameFieldLabelValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
-                LabelId: "lblFieldAge",
-                InputId: "age",
-                InputType: "text",
-                TitleName: "What is your age",
-                BasePath: "/persons/validate/age",
-            })
+                <!-- Birth date Field -->
+                @views_dashboards_persons_new_components.NameFieldLabelValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
+                    LabelId: "lblFieldBirthDate",
+                    InputId: "birthDate",
+                    InputType: "date",
+                    TitleName: "What is your birthdate",
+                    BasePath: "/persons/validate/birthdate",
+                })
+            </div>
 
-          <!-- Birth date Field -->
-         @views_dashboards_persons_new_components.NameFieldLabelValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
-                LabelId: "lblFieldBirthDate",
-                InputId: "birthDate",
-                InputType: "date",
-                TitleName: "What is your birthdate",
-                BasePath: "/persons/validate/birthdate",
-            })
 
             <!-- Description Field -->
             <label class="form-control">

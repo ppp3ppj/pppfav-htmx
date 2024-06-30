@@ -79,7 +79,7 @@ func new(existingPerson *models.Person, baseURL string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!-- Age Field -->")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"grid grid-cols-2 gap-2\"><!-- Age Field -->")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -107,7 +107,7 @@ func new(existingPerson *models.Person, baseURL string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!-- Description Field --><label class=\"form-control\"><div class=\"label\"><span class=\"label-text\">Your bio</span> <span class=\"label-text-alt\">Alt label</span></div><textarea class=\"textarea textarea-bordered h-24\" placeholder=\"Bio\"></textarea><div class=\"label\"><span class=\"label-text-alt\">Your bio</span> <span class=\"label-text-alt\">Alt label</span></div></label><!-- Cute Rating Field --><div class=\"form-control\"><div class=\"label\"><span class=\"label-text\">Cute Rating</span></div><div class=\"rating gap-1\"><input type=\"radio\" name=\"rating-3\" class=\"mask mask-heart bg-green-400\" checked=\"checked\"> <input type=\"radio\" name=\"rating-3\" class=\"mask mask-heart bg-lime-400\"> <input type=\"radio\" name=\"rating-3\" class=\"mask mask-heart bg-yellow-400\"> <input type=\"radio\" name=\"rating-3\" class=\"mask mask-heart bg-orange-400\"> <input type=\"radio\" name=\"rating-3\" class=\"mask mask-heart bg-red-400\"></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><!-- Description Field --><label class=\"form-control\"><div class=\"label\"><span class=\"label-text\">Your bio</span> <span class=\"label-text-alt\">Alt label</span></div><textarea class=\"textarea textarea-bordered h-24\" placeholder=\"Bio\"></textarea><div class=\"label\"><span class=\"label-text-alt\">Your bio</span> <span class=\"label-text-alt\">Alt label</span></div></label><!-- Cute Rating Field --><div class=\"form-control\"><div class=\"label\"><span class=\"label-text\">Cute Rating</span></div><div class=\"rating gap-1\"><input type=\"radio\" name=\"rating-3\" class=\"mask mask-heart bg-green-400\" checked=\"checked\"> <input type=\"radio\" name=\"rating-3\" class=\"mask mask-heart bg-lime-400\"> <input type=\"radio\" name=\"rating-3\" class=\"mask mask-heart bg-yellow-400\"> <input type=\"radio\" name=\"rating-3\" class=\"mask mask-heart bg-orange-400\"> <input type=\"radio\" name=\"rating-3\" class=\"mask mask-heart bg-red-400\"></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
