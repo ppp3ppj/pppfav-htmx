@@ -37,6 +37,7 @@ func (fe *PersonFrontend) ValidateAge(c echo.Context) error {
     ageComponent := views_dashboards_persons_new_components.NewPersonVadidateVM{
         LabelId: "lblFieldAge",
         InputId: "age",
+        InputType: "text",
         TitleName: "What is your age",
         BasePath: "/persons/validate/age",
         ContentName: age,
@@ -60,6 +61,7 @@ func (fe *PersonFrontend) ValidateName(c echo.Context) error {
     newVM := views_dashboards_persons_new_components.NewPersonVadidateVM{
         LabelId: "lblFieldName",
         InputId: "name",
+        InputType: "text",
         TitleName: "What is your name",
         BasePath: "/persons/validate/name",
         ContentName: name,

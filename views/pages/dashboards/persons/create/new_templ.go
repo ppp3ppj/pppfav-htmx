@@ -72,6 +72,7 @@ func new(existingPerson *models.Person, baseURL string) templ.Component {
 		templ_7745c5c3_Err = views_dashboards_persons_new_components.NameFieldLabelValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
 			LabelId:   "lblFieldName",
 			InputId:   "name",
+			InputType: "text",
 			TitleName: "What is your name",
 			BasePath:  "/persons/validate/name",
 		}).Render(ctx, templ_7745c5c3_Buffer)
@@ -85,6 +86,7 @@ func new(existingPerson *models.Person, baseURL string) templ.Component {
 		templ_7745c5c3_Err = views_dashboards_persons_new_components.NameFieldLabelValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
 			LabelId:   "lblFieldAge",
 			InputId:   "age",
+			InputType: "text",
 			TitleName: "What is your age",
 			BasePath:  "/persons/validate/age",
 		}).Render(ctx, templ_7745c5c3_Buffer)
@@ -98,6 +100,7 @@ func new(existingPerson *models.Person, baseURL string) templ.Component {
 		templ_7745c5c3_Err = views_dashboards_persons_new_components.NameFieldLabelValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
 			LabelId:   "lblFieldBirthDate",
 			InputId:   "birthdate",
+			InputType: "date",
 			TitleName: "What is your birthdate",
 			BasePath:  "/persons/validate/birthdate",
 		}).Render(ctx, templ_7745c5c3_Buffer)

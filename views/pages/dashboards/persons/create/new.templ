@@ -58,6 +58,7 @@ templ new(existingPerson *models.Person, baseURL string) {
             @views_dashboards_persons_new_components.NameFieldLabelValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
                 LabelId: "lblFieldName",
                 InputId: "name",
+                InputType: "text",
                 TitleName: "What is your name",
                 BasePath: "/persons/validate/name",
             })
@@ -67,6 +68,7 @@ templ new(existingPerson *models.Person, baseURL string) {
             @views_dashboards_persons_new_components.NameFieldLabelValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
                 LabelId: "lblFieldAge",
                 InputId: "age",
+                InputType: "text",
                 TitleName: "What is your age",
                 BasePath: "/persons/validate/age",
             })
@@ -75,6 +77,7 @@ templ new(existingPerson *models.Person, baseURL string) {
          @views_dashboards_persons_new_components.NameFieldLabelValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
                 LabelId: "lblFieldBirthDate",
                 InputId: "birthdate",
+                InputType: "date",
                 TitleName: "What is your birthdate",
                 BasePath: "/persons/validate/birthdate",
             })

@@ -5,6 +5,7 @@ import "fmt"
 type NewPersonVadidateVM struct {
     LabelId string
     InputId string
+    InputType string
     TitleName string
     ContentName string
     StatusType string
@@ -25,7 +26,7 @@ templ NameFieldLabelValidation(personValidate NewPersonVadidateVM) {
       <input
           name={ personValidate.InputId }
           hx-post={ personValidate.BasePath }
-          type="text"
+          type={ personValidate.InputType }
           placeholder={ fmt.Sprintf("%s %s", "Enter", "Test") }
           if len(personValidate.ContentName) != 0 {
               value={ personValidate.ContentName }
