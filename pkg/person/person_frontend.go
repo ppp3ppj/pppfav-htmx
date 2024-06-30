@@ -6,6 +6,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/labstack/echo/v4"
 	"github.com/ppp3ppj/pppfav-htmx/pkg/models"
@@ -28,7 +29,30 @@ func NewPersonFrontend(
 
     g.POST("/persons/validate/name", fe.ValidateName)
     g.POST("/persons/validate/age", fe.ValidateAge)
-    //g.POST("/persons/validate/birthdate", )
+    g.POST("/persons/validate/birthdate", fe.ValidateBirthDate)
+}
+func (fe *PersonFrontend) ValidateBirthDate(c echo.Context) error {
+    birthDate := c.FormValue("birthDate")
+    ok, errorMessage := validateBirthDate(birthDate)
+    birthDateComponent := views_dashboards_persons_new_components.NewPersonVadidateVM{
+        LabelId: "lblFieldBirthDate",
+        InputId: "birthDate",
+        InputType: "date",
+        TitleName: "What is your birthdate",
+        BasePath: "/persons/validate/birthdate",
+        ContentName: birthDate,
+    }
+
+    if ok {
+        birthDateComponent.StatusType = "Success"
+        validateViewOK := views_dashboards_persons_new_components.NameFieldLabelValidation(birthDateComponent)
+        return template.AssertRender(c, http.StatusOK, validateViewOK)
+    } else {
+        birthDateComponent.StatusType = "Error"
+        birthDateComponent.ErrorMessage = errorMessage
+        validateViewErr := views_dashboards_persons_new_components.NameFieldLabelValidation(birthDateComponent)
+        return template.AssertRender(c, http.StatusOK, validateViewErr)
+    }
 }
 
 func (fe *PersonFrontend) ValidateAge(c echo.Context) error {
@@ -112,6 +136,7 @@ func validateName(name string) (bool, string) {
 
 	return true, "The name is valid."
 }
+
 // Validate the age.
 // if -0 is 0 will not error
 func validateAge(age string) (bool, string) {
@@ -138,4 +163,33 @@ func validateAge(age string) (bool, string) {
 	}
 
 	return true, "The age is valid."
+}
+
+// Validate the birth date.
+func validateBirthDate(birthDate string) (bool, string) {
+	trimmedDate := strings.TrimSpace(birthDate)
+
+	if len(trimmedDate) == 0 {
+		return false, "The birth date cannot be empty."
+	}
+
+	// Define the date format. Assuming format is YYYY-MM-DD.
+	const layout = "2006-01-02"
+	parsedDate, err := time.Parse(layout, trimmedDate)
+	if err != nil {
+		return false, "The birth date must be in the format YYYY-MM-DD."
+	}
+
+	// Check if the date is in the future.
+	if parsedDate.After(time.Now()) {
+		return false, "The birth date cannot be in the future."
+	}
+
+	// Optionally, check if the date is more than 150 years in the past.
+	earliestAllowedDate := time.Now().AddDate(-100, 0, 0)
+	if parsedDate.Before(earliestAllowedDate) {
+		return false, "The birth date cannot be more than 100 years ago."
+	}
+
+	return true, "The birth date is valid."
 }

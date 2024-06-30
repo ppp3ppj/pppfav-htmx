@@ -99,7 +99,7 @@ func new(existingPerson *models.Person, baseURL string) templ.Component {
 		}
 		templ_7745c5c3_Err = views_dashboards_persons_new_components.NameFieldLabelValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
 			LabelId:   "lblFieldBirthDate",
-			InputId:   "birthdate",
+			InputId:   "birthDate",
 			InputType: "date",
 			TitleName: "What is your birthdate",
 			BasePath:  "/persons/validate/birthdate",
