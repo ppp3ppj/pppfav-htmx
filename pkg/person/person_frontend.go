@@ -30,6 +30,7 @@ func NewPersonFrontend(
     g.POST("/persons/validate/name", fe.ValidateName)
     g.POST("/persons/validate/age", fe.ValidateAge)
     g.POST("/persons/validate/birthdate", fe.ValidateBirthDate)
+    g.POST("/persons/validate/description", fe.ValidateDescription)
 }
 func (fe *PersonFrontend) ValidateBirthDate(c echo.Context) error {
     birthDate := c.FormValue("birthDate")
@@ -79,6 +80,30 @@ func (fe *PersonFrontend) ValidateAge(c echo.Context) error {
     }
 }
 
+func (fe *PersonFrontend) ValidateDescription(c echo.Context) error {
+    description := c.FormValue("description")
+    fmt.Println(description)
+    isValid, message := validateDescription(description)
+    descriptionComponent := views_dashboards_persons_new_components.NewPersonVadidateVM{
+        LabelId: "lblFieldDescription",
+        InputId: "description",
+        InputType: "textarea",
+        TitleName: "What is your description",
+        BasePath: "/persons/validate/description",
+        ContentName: description,
+    }
+    if !isValid {
+        descriptionComponent.StatusType = "Error"
+        descriptionComponent.ErrorMessage = message
+        validateViewErr := views_dashboards_persons_new_components.TextAreaValidation(descriptionComponent)
+        return template.AssertRender(c, http.StatusOK, validateViewErr)
+    }
+
+    validateViewOk := views_dashboards_persons_new_components.TextAreaValidation(descriptionComponent)
+    descriptionComponent.StatusType = "Success"
+    return template.AssertRender(c, http.StatusOK, validateViewOk)
+}
+
 func (fe *PersonFrontend) ValidateName(c echo.Context) error {
     name := c.FormValue("name")
     ok, strErr := validateName(name)
@@ -111,6 +136,32 @@ func (fe *PersonFrontend) ValidateName(c echo.Context) error {
         validateViewErr := views_dashboards_persons_new_components.NameFieldLabelValidation(newVM)
         return template.AssertRender(c, http.StatusOK, validateViewErr)
     }
+}
+
+// validateDescription validates a description string and returns a boolean and a message.
+func validateDescription(description string) (bool, string) {
+	trimmedDescription := strings.TrimSpace(description)
+
+	if len(trimmedDescription) == 0 {
+		return false, "The description cannot be empty."
+	}
+
+	if len(trimmedDescription) < 10 {
+		return false, "The description is too short. It must be at least 10 characters long."
+	}
+
+	if len(trimmedDescription) > 500 {
+		return false, "The description is too long. It should be no more than 500 characters."
+	}
+
+	// Optional: Add a regex check for allowed characters.
+	// Example: only allow letters, digits, spaces, punctuation.
+	allowedCharacters := regexp.MustCompile(`^[a-zA-Z0-9\s.,;!?'"()-]+$`)
+	if !allowedCharacters.MatchString(trimmedDescription) {
+		return false, "The description contains invalid characters."
+	}
+
+	return true, "The description is valid."
 }
 
 // Enhanced regex for international names and special characters.

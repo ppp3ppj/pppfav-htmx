@@ -85,6 +85,15 @@ templ new(existingPerson *models.Person, baseURL string) {
 
 
             <!-- Description Field -->
+            @views_dashboards_persons_new_components.TextAreaValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
+                LabelId: "lblFieldDescription",
+                InputId: "description",
+                InputType: "texarea",
+                TitleName: "What is your description",
+                BasePath: "/persons/validate/description",
+            })
+
+<!--
             <label class="form-control">
               <div class="label">
                 <span class="label-text">Your bio</span>
@@ -97,6 +106,7 @@ templ new(existingPerson *models.Person, baseURL string) {
               </div>
             </label>
 
+-->
             <!-- Cute Rating Field -->
             <div class="form-control">
                   <div class="label">

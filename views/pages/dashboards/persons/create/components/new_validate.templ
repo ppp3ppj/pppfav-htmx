@@ -40,6 +40,54 @@ templ NameFieldLabelValidation(personValidate NewPersonVadidateVM) {
     </label>
 }
 
+templ TextAreaValidation(personValidate NewPersonVadidateVM) {
+            <label class="form-control"
+                id={ personValidate.LabelId }
+                hx-target={ fmt.Sprintf("%s%s", "#", personValidate.LabelId) }
+                hx-swap="outerHTML">
+              <div class="label">
+                <span class="label-text">{ personValidate.TitleName }</span>
+              </div>
+              <textarea
+                  name={ personValidate.InputId }
+                  hx-post={ personValidate.BasePath }
+                  type={ personValidate.InputType }
+                  class={ textAreaClassValidate(personValidate.StatusType) }
+                  placeholder={ fmt.Sprintf("%s %s", "Enter", "Test") }
+              >
+                 if len(personValidate.ContentName) != 0 {
+                      { personValidate.ContentName }
+                  }
+              </textarea>
+
+            if len(personValidate.ErrorMessage) != 0 {
+              <div class="label">
+                <span class="label-text-alt text-error">{ personValidate.ErrorMessage }</span>
+              </div>
+            }
+            </label>
+}
+
+func textAreaClassValidate(status string) string {
+    // Define the common classes.
+    commonClasses := "textarea textarea-bordered h-24 w-full md:max-w-3xl lg:max-w-4xl"
+
+    // Define a map for specific status classes.
+    statusClasses := map[string]string{
+        "Success": "textarea-success",
+        "Error":   "textarea-error",
+        "Warning": "textarea-warning",
+    }
+
+    // Get the specific class for the given status, if it exists.
+    if specificClass, exists := statusClasses[status]; exists {
+        return fmt.Sprintf("%s %s", specificClass, commonClasses)
+    }
+
+    // Return the common classes if no specific class was found for the status.
+    return commonClasses
+}
+
 func nameInputClassValidate(status string) string {
     // Define the common classes.
     commonClasses := "input input-bordered w-full md:max-w-3xl lg:max-w-4xl"
@@ -59,3 +107,5 @@ func nameInputClassValidate(status string) string {
     // Return the common classes if no specific class was found for the status.
     return commonClasses
 }
+
+
