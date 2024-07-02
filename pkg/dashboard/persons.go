@@ -220,28 +220,29 @@ func (fe *DashboardFrontend) PersonsPush(c echo.Context) error {
     vm := views_dashboards_persons_new.NewPersonVM{
         Opts: opts,
     }
-    file, err := c.FormFile("imageData")
-    if err != nil {
-        return err
-    }
-    fmt.Println("Not Error")
-    fmt.Println(file.Size)
-    newImageURL, err := fe.ImageService.UploadImage(file, "uploads")
-    if err != nil {
-        return err
-    }
 
-    fmt.Println("Not Error add to uploads")
-    fmt.Println(newImageURL)
+    imageURL := ""
+    file, err := c.FormFile("imageData")
+    if err == nil {
+        fmt.Println("Not Error")
+        fmt.Println(file.Size)
+        newImageURL, err := fe.ImageService.UploadImage(file, "uploads")
+        if err != nil {
+            imageURL = ""
+        }
+        imageURL = fe.BaseURL + newImageURL
+    }
 
     personsNew := views_dashboards_persons_new.New(vm)
     fe.PersonRepo.Insert(c, &models.Person{
         Name: "ppp agnt",
         Age: 30,
         BirthDate: time.Date(1994, 5, 12, 0, 0, 0, 0, time.UTC),
-        ImageURL: fe.BaseURL + newImageURL,
+        ImageURL: imageURL,
         Description: "A sample person",
     })
+
+    fmt.Printf("ImageURL: %s", imageURL)
 
     return template.AssertRender(c, http.StatusOK, personsNew)
 }
