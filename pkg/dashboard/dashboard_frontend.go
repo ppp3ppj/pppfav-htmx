@@ -58,9 +58,9 @@ func (fe *DashboardFrontend) Index(c echo.Context) error {
 }
 
 type PersonCreateRequest struct {
-    Name        string    `json:"name" form:"name"`
-    Age         int       `json:"age" form:"age"`
-    BirthDate   time.Time `json:"birth_date" form:"birth_date"`   // Uses time.Time to represent date
+    Name        string    `json:"name" form:"name" validate:"required"`
+    Age         int       `json:"age" form:"age" validate:"required"`
+    BirthDate   time.Time `json:"birth_date" form:"birthDate" validate:"required"`   // Uses time.Time to represent date
     ImageURL    string    `json:"image_url" form:"image_url"`     // URL to the image of the person
     Description string    `json:"description" form:"description"` // Description or biography of the person
 }

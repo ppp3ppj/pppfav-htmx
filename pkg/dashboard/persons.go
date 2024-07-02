@@ -192,9 +192,26 @@ func mockData() []models.Person {
 }
 
 func (fe *DashboardFrontend) PersonsPush(c echo.Context) error {
+
     var req PersonCreateRequest
     if err := c.Bind(&req); err != nil {
     }
+
+
+    dateString := c.FormValue("birthDate")
+    birthDate, err := time.Parse("2006-01-02", dateString)
+    if err != nil {
+        fmt.Println("Error parsing date: ", err)
+        // refactor this
+        return nil
+    }
+    req.BirthDate = birthDate
+
+    println("req is ")
+    println(req.Name)
+    println(req.Age)
+    println(req.BirthDate.String())
+    println(req.Description)
 
     opts := views_variables.DashboardOpts{
         Nav: nav(0),
