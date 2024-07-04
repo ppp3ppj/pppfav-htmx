@@ -60,6 +60,7 @@ templ new(existingPerson *models.Person, baseURL string) {
                 InputId: "name",
                 InputType: "text",
                 TitleName: "What is your name",
+                Placeholder: "Enter name",
                 BasePath: "/persons/validate/name",
             })
 
@@ -70,6 +71,7 @@ templ new(existingPerson *models.Person, baseURL string) {
                     InputId: "age",
                     InputType: "text",
                     TitleName: "What is your age",
+                    Placeholder: "Enter age",
                     BasePath: "/persons/validate/age",
                 })
 
@@ -90,6 +92,7 @@ templ new(existingPerson *models.Person, baseURL string) {
                 InputId: "description",
                 InputType: "texarea",
                 TitleName: "What is your description",
+                Placeholder: "Enter Description",
                 BasePath: "/persons/validate/description",
             })
 

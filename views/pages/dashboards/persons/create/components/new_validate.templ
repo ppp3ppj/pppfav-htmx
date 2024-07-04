@@ -8,6 +8,7 @@ type NewPersonVadidateVM struct {
     InputType string
     TitleName string
     ContentName string
+    Placeholder string
     StatusType string
     ErrorMessage string
     BasePath string
@@ -27,7 +28,7 @@ templ NameFieldLabelValidation(personValidate NewPersonVadidateVM) {
           name={ personValidate.InputId }
           hx-post={ personValidate.BasePath }
           type={ personValidate.InputType }
-          placeholder={ fmt.Sprintf("%s %s", "Enter", "Test") }
+          placeholder={ personValidate.Placeholder }
           if len(personValidate.ContentName) != 0 {
               value={ personValidate.ContentName }
           }
@@ -53,7 +54,7 @@ templ TextAreaValidation(personValidate NewPersonVadidateVM) {
                   hx-post={ personValidate.BasePath }
                   type={ personValidate.InputType }
                   class={ textAreaClassValidate(personValidate.StatusType) }
-                  placeholder={ fmt.Sprintf("%s %s", "Enter", "Test") }
+                  placeholder={ personValidate.Placeholder }
               >
                  if len(personValidate.ContentName) != 0 {
                       { personValidate.ContentName }

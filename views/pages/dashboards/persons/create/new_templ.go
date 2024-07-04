@@ -70,11 +70,12 @@ func new(existingPerson *models.Person, baseURL string) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Err = views_dashboards_persons_new_components.NameFieldLabelValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
-			LabelId:   "lblFieldName",
-			InputId:   "name",
-			InputType: "text",
-			TitleName: "What is your name",
-			BasePath:  "/persons/validate/name",
+			LabelId:     "lblFieldName",
+			InputId:     "name",
+			InputType:   "text",
+			TitleName:   "What is your name",
+			Placeholder: "Enter name",
+			BasePath:    "/persons/validate/name",
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -84,11 +85,12 @@ func new(existingPerson *models.Person, baseURL string) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Err = views_dashboards_persons_new_components.NameFieldLabelValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
-			LabelId:   "lblFieldAge",
-			InputId:   "age",
-			InputType: "text",
-			TitleName: "What is your age",
-			BasePath:  "/persons/validate/age",
+			LabelId:     "lblFieldAge",
+			InputId:     "age",
+			InputType:   "text",
+			TitleName:   "What is your age",
+			Placeholder: "Enter age",
+			BasePath:    "/persons/validate/age",
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -112,11 +114,12 @@ func new(existingPerson *models.Person, baseURL string) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		templ_7745c5c3_Err = views_dashboards_persons_new_components.TextAreaValidation(views_dashboards_persons_new_components.NewPersonVadidateVM{
-			LabelId:   "lblFieldDescription",
-			InputId:   "description",
-			InputType: "texarea",
-			TitleName: "What is your description",
-			BasePath:  "/persons/validate/description",
+			LabelId:     "lblFieldDescription",
+			InputId:     "description",
+			InputType:   "texarea",
+			TitleName:   "What is your description",
+			Placeholder: "Enter Description",
+			BasePath:    "/persons/validate/description",
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

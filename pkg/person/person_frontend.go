@@ -64,6 +64,7 @@ func (fe *PersonFrontend) ValidateAge(c echo.Context) error {
         InputId: "age",
         InputType: "text",
         TitleName: "What is your age",
+        Placeholder: "Enter age",
         BasePath: "/persons/validate/age",
         ContentName: age,
     }
@@ -89,6 +90,7 @@ func (fe *PersonFrontend) ValidateDescription(c echo.Context) error {
         InputId: "description",
         InputType: "textarea",
         TitleName: "What is your description",
+        Placeholder: "Enter description",
         BasePath: "/persons/validate/description",
         ContentName: description,
     }
@@ -112,6 +114,7 @@ func (fe *PersonFrontend) ValidateName(c echo.Context) error {
         InputId: "name",
         InputType: "text",
         TitleName: "What is your name",
+        Placeholder: "Enter name",
         BasePath: "/persons/validate/name",
         ContentName: name,
     }
