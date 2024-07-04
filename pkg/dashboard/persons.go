@@ -3,6 +3,7 @@ package dashboard
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/labstack/echo/v4"
@@ -194,10 +195,13 @@ func mockData() []models.Person {
 func (fe *DashboardFrontend) PersonsPush(c echo.Context) error {
 
     var req PersonCreateRequest
-    if err := c.Bind(&req); err != nil {
+
+    nameReq := c.FormValue("name")
+    ageReq := c.FormValue("age")
+    ageNunber, err := strconv.ParseUint(ageReq, 10, 32); if err != nil {
+        req.Age = 0
     }
-
-
+    descriptionReq := c.FormValue("description")
     dateString := c.FormValue("birthDate")
     birthDate, err := time.Parse("2006-01-02", dateString)
     if err != nil {
@@ -206,6 +210,9 @@ func (fe *DashboardFrontend) PersonsPush(c echo.Context) error {
         return nil
     }
     req.BirthDate = birthDate
+    req.Name = nameReq
+    req.Age = int(ageNunber)
+    req.Description = descriptionReq
 
     println("req is ")
     println(req.Name)
@@ -235,11 +242,11 @@ func (fe *DashboardFrontend) PersonsPush(c echo.Context) error {
 
     personsNew := views_dashboards_persons_new.New(vm)
     fe.PersonRepo.Insert(c, &models.Person{
-        Name: "ppp agnt",
-        Age: 30,
-        BirthDate: time.Date(1994, 5, 12, 0, 0, 0, 0, time.UTC),
+        Name: req.Name,
+        Age: req.Age,
+        BirthDate: req.BirthDate,
         ImageURL: imageURL,
-        Description: "A sample person",
+        Description: req.Description,
     })
 
     fmt.Printf("ImageURL: %s", imageURL)
