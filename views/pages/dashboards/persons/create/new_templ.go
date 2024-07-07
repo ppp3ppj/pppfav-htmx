@@ -156,7 +156,7 @@ func submitButton(existingId string) templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-full flex flex-row justify-end space-x-3\"><button id=\"draft-button\" class=\"btn btn-secondary md:max-w-3xl lg:max-w-4xl w-24 md:w-32 lg:w-40\" hx-get=\"/dashboard/persons\" hx-target=\"#admin-root\" hx-push-url=\"true\" hx-swap=\"innerHTML\">Cancel</button> <button id=\"publish-button\" class=\"btn btn-primary md:max-w-3xl lg:max-w-4xl w-32 md:w-40 lg:w-48\" hx-post=\"/dashboard/persons/push\" hx-target=\"#admin-root\" hx-swap=\"outerHTML\" hx-indicator=\"#global-progress\">Save</button></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-full flex flex-row justify-end space-x-3\"><button id=\"draft-button\" class=\"btn btn-secondary md:max-w-3xl lg:max-w-4xl w-24 md:w-32 lg:w-40\" hx-get=\"/dashboard/persons\" hx-target=\"#admin-root\" hx-push-url=\"true\" hx-swap=\"innerHTML\">Cancel</button><!-- use hx-swap afterend if create and use outerHTML if edit --><button id=\"publish-button\" class=\"btn btn-primary md:max-w-3xl lg:max-w-4xl w-32 md:w-40 lg:w-48\" hx-post=\"/dashboard/persons/push\" hx-target=\"#admin-root\" hx-swap=\"afterend\" hx-indicator=\"#global-progress\">Save</button></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

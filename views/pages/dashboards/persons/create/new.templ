@@ -143,12 +143,13 @@ templ submitButton(existingId string) {
 		>
 		    Cancel
 		</button>
+        <!-- use hx-swap afterend if create and use outerHTML if edit -->
 		<button
 			id="publish-button"
 			class="btn btn-primary md:max-w-3xl lg:max-w-4xl w-32 md:w-40 lg:w-48"
 			hx-post="/dashboard/persons/push"
             hx-target="#admin-root"
-            hx-swap="outerHTML"
+            hx-swap="afterend"
 			hx-indicator="#global-progress"
 		>
 			Save
