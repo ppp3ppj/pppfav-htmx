@@ -9,6 +9,8 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/ppp3ppj/pppfav-htmx/pkg/models"
 	"github.com/ppp3ppj/pppfav-htmx/template"
+	"github.com/ppp3ppj/pppfav-htmx/utils/validate/person_validate"
+	views_alert "github.com/ppp3ppj/pppfav-htmx/views/components/alert"
 	views_person_card "github.com/ppp3ppj/pppfav-htmx/views/components/personCard"
 	views_dashboards_persons "github.com/ppp3ppj/pppfav-htmx/views/pages/dashboards/persons"
 	views_dashboards_persons_new "github.com/ppp3ppj/pppfav-htmx/views/pages/dashboards/persons/create"
@@ -197,6 +199,24 @@ func (fe *DashboardFrontend) PersonsPush(c echo.Context) error {
     var req PersonCreateRequest
 
     nameReq := c.FormValue("name")
+    ok, strErr := person_validate.ValidateName(nameReq)
+    _ = strErr
+    if ok {
+        nameExists, err := fe.PersonRepo.CheckNameExists(nameReq)
+        fmt.Println("Data is ")
+        fmt.Printf("%t", nameExists)
+        _ = err
+        if nameExists {
+            fmt.Println("Name Exists")
+        } else {
+            fmt.Println("OK")
+        }
+    } else {
+            fmt.Println("Error not ok")
+            fail := views_alert.AlertFailure("Failed to save person:", "error agent")
+            return template.AssertRender(c, http.StatusOK, fail)
+    }
+
     ageReq := c.FormValue("age")
     ageNunber, err := strconv.ParseUint(ageReq, 10, 32); if err != nil {
         req.Age = 0
@@ -240,16 +260,21 @@ func (fe *DashboardFrontend) PersonsPush(c echo.Context) error {
         imageURL = fe.BaseURL + newImageURL
     }
 
-    personsNew := views_dashboards_persons_new.New(vm)
-    fe.PersonRepo.Insert(c, &models.Person{
-        Name: req.Name,
-        Age: req.Age,
-        BirthDate: req.BirthDate,
-        ImageURL: imageURL,
-        Description: req.Description,
-    })
+    if ok {
+        personsNew := views_dashboards_persons_new.New(vm)
+        fe.PersonRepo.Insert(c, &models.Person{
+            Name: req.Name,
+            Age: req.Age,
+            BirthDate: req.BirthDate,
+            ImageURL: imageURL,
+            Description: req.Description,
+        })
 
-    fmt.Printf("ImageURL: %s", imageURL)
+        fmt.Printf("ImageURL: %s", imageURL)
 
-    return template.AssertRender(c, http.StatusOK, personsNew)
+        return template.AssertRender(c, http.StatusOK, personsNew)
+    }
+
+    // will fix it.
+    return template.RenderEmpty(c)
 }
