@@ -199,9 +199,8 @@ func (fe *DashboardFrontend) PersonsPush(c echo.Context) error {
     var req PersonCreateRequest
 
     nameReq := c.FormValue("name")
-    ok, strErr := person_validate.ValidateName(nameReq)
-    _ = strErr
-    if ok {
+    nameOk, nameErr := person_validate.ValidateName(nameReq)
+    if nameOk {
         nameExists, err := fe.PersonRepo.CheckNameExists(nameReq)
         fmt.Println("Data is ")
         fmt.Printf("%t", nameExists)
@@ -213,21 +212,29 @@ func (fe *DashboardFrontend) PersonsPush(c echo.Context) error {
         }
     } else {
             fmt.Println("Error not ok")
-            fail := views_alert.AlertFailure("Failed to save person:", "error agent")
+            fail := views_alert.AlertFailure("Failed to save person:", nameErr)
             return template.AssertRender(c, http.StatusOK, fail)
     }
 
     ageReq := c.FormValue("age")
+
+    ageOk, ageErr := person_validate.ValidateAge(ageReq)
+    if len(ageErr) != 0 && !ageOk {
+        fail := views_alert.AlertFailure("Failed to save person:", ageErr)
+        return template.AssertRender(c, http.StatusOK, fail)
+    }
+
     ageNunber, err := strconv.ParseUint(ageReq, 10, 32); if err != nil {
         req.Age = 0
     }
+
     descriptionReq := c.FormValue("description")
     dateString := c.FormValue("birthDate")
     birthDate, err := time.Parse("2006-01-02", dateString)
     if err != nil {
         fmt.Println("Error parsing date: ", err)
-        // refactor this
-        return nil
+        fail := views_alert.AlertFailure("Failed to save person:", "Error parsing date")
+        return template.AssertRender(c, http.StatusOK, fail)
     }
     req.BirthDate = birthDate
     req.Name = nameReq
@@ -260,21 +267,33 @@ func (fe *DashboardFrontend) PersonsPush(c echo.Context) error {
         imageURL = fe.BaseURL + newImageURL
     }
 
-    if ok {
-        personsNew := views_dashboards_persons_new.New(vm)
-        fe.PersonRepo.Insert(c, &models.Person{
-            Name: req.Name,
-            Age: req.Age,
-            BirthDate: req.BirthDate,
-            ImageURL: imageURL,
-            Description: req.Description,
-        })
 
-        fmt.Printf("ImageURL: %s", imageURL)
+    personsNew := views_dashboards_persons_new.New(vm)
+    personData := models.Person{
+        Name: req.Name,
+        Age: req.Age,
+        BirthDate: req.BirthDate,
+        ImageURL: imageURL,
+        Description: req.Description,
+    };
+    fe.PersonRepo.Insert(c, &personData)
+    fmt.Println("test user")
+    fmt.Println(personData)
+    if len(personData.ID) > 0 {
+        opts := views_variables.DashboardOpts{
+            Nav: nav(0),
+        }
+        mockPerson := mockData()
+        personVm := views_dashboards_persons.PersonsVm{
+            Opts: opts,
+            Persons: mockPerson,
+            CreatePath: "/dashboard/persons/new",
 
+        }
+        dashboard := views_dashboards_persons.PersonsContent(personVm)
+
+        return template.AssertRender(c, http.StatusOK, dashboard)
+    } else {
         return template.AssertRender(c, http.StatusOK, personsNew)
     }
-
-    // will fix it.
-    return template.RenderEmpty(c)
 }
